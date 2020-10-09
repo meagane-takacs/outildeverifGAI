@@ -1,0 +1,2866 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nmx.PublicAPI</name>
+    </assembly>
+    <members>
+        <member name="T:Nmx.Public.DE.ConnectionManager">
+            <summary>
+            A class to manage connectivity.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.ConnectionManager.Station">
+            <summary>
+            The station for which the connection manager operates.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionManager.Connect(Nmx.Public.DE.WorkspaceObject,System.Int32,Nmx.Public.DE.WorkspaceObject,System.Int32)">
+            <summary>
+            Connects the two connection points.
+            </summary>
+            <param name="obj1">Object to be connected with connection point side1.</param>
+            <param name="side1">The side of object obj1 to connect.</param>
+            <param name="obj2">Object to be connected with connection point side2.</param>
+            <param name="side2">The side of object obj2 to connect.</param>
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionManager.Disconnect(Nmx.Public.DE.WorkspaceObject,System.Int32)">
+            <summary>
+            Disonnects a connection point.
+            </summary>
+            <param name="obj1">Object to be connected with connection point side1.</param>
+            <param name="side1">The side of object obj1 to connect.</param>
+        </member>
+        <member name="T:Nmx.Public.DE.ConnectionPoint">
+            <summary>
+            A connection point represents a connection to a connection segment as seen from the segment. 
+            For example, if devices A, B and C are all connected they will share the same ConnectionSegment and this
+            ConnectionSegment will have three ConnectionPoints, one for each device.
+            </summary>
+            <remarks>
+            <h4>Connectivity Model</h4><para>
+            The network connectivity is modelled through the <see cref="T:Nmx.Public.DE.ConnectionPoint" /> and <see cref="T:Nmx.Public.DE.ConnectionSegment" /> classes. They are exposed from the workspace object:
+            <list type="bullet">
+                <item>Each workspace object has one or more ConnectionPoint (the <see cref="P:Nmx.Public.DE.WorkspaceObject.Connections" /> property). Each connection point has a reference to the ConnectionSegment 
+                the object is connected to on that side.
+                Think of the connection point as being attached to the object itself while the ConnectionSegment matches the TERMS in the DE data model.</item>
+                <item>The connection segment on the other hand has a list of ConnectionPoints that are attached to it.</item>
+            </list>
+            <br />
+            <img src="../img/de.connectivity-overview.png" title="How connectivity is modeled in the API" />
+        </para>
+            </remarks>
+            <seealso cref="T:Nmx.Public.DE.INetworkWalker" />
+            <seealso cref="T:Nmx.Public.DE.ConnectionSegment" /> 
+        </member>
+        <member name="P:Nmx.Public.DE.ConnectionPoint.ConnectedObject">
+            <summary>
+            The object connected to the segment on this connection point
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.ConnectionPoint.Side">
+            <summary>
+            The side of the <see cref="P:Nmx.Public.DE.ConnectionPoint.ConnectedObject"/> that is connected to the segment.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.ConnectionPoint.Segment">
+            <summary>
+            The connection segment that the connection point is connecting the <see cref="P:Nmx.Public.DE.ConnectionPoint.ConnectedObject"/> to.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.ConnectionPoint.ConnectedConnectionPoints">
+            <summary>
+            Gets the other connection points connected to the same segment
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionPoint.Equals(Nmx.Public.DE.ConnectionPoint)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionPoint.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionPoint.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionPoint.op_Equality(Nmx.Public.DE.ConnectionPoint,Nmx.Public.DE.ConnectionPoint)">
+            <summary>
+            Compare two instances for equality
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionPoint.op_Inequality(Nmx.Public.DE.ConnectionPoint,Nmx.Public.DE.ConnectionPoint)">
+            <summary>
+            Compare two instances for inequality
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.DE.ConnectionSegment">
+            <inheritdoc />
+            <summary>
+            A connection segment represents an electrical connection between two or more devices. Each device connected to the segment are
+            listed in the <see cref="P:Nmx.Public.DE.ConnectionSegment.Connections" /> property. The connection segment matches the TERM object in NM.
+            </summary>
+            <remarks>
+            <h4>Connectivity Model</h4><para>
+            The network connectivity is modelled through the <see cref="T:Nmx.Public.DE.ConnectionPoint" /> and <see cref="T:Nmx.Public.DE.ConnectionSegment" /> classes. They are exposed from the workspace object:
+            <list type="bullet">
+                <item>Each workspace object has one or more ConnectionPoint (the <see cref="P:Nmx.Public.DE.WorkspaceObject.Connections" /> property). Each connection point has a reference to the ConnectionSegment 
+                the object is connected to on that side.
+                Think of the connection point as being attached to the object itself while the ConnectionSegment matches the TERMS in the DE data model.</item>
+                <item>The connection segment on the other hand has a list of ConnectionPoints that are attached to it.</item>
+            </list>
+            <br />
+            <img src="../img/de.connectivity-overview.png" title="How connectivity is modeled in the API" />
+        </para>
+            </remarks>
+            <seealso cref="T:Nmx.Public.DE.INetworkWalker" />
+        </member>
+        <member name="P:Nmx.Public.DE.ConnectionSegment.Id">
+            <summary>
+            The ID of the segment. 
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.ConnectionSegment.Name">
+            <summary>
+            The name of the segment.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.ConnectionSegment.Connections">
+            <summary>
+            List of devices connected to the segment
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionSegment.Equals(Nmx.Public.DE.ConnectionSegment)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionSegment.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionSegment.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionSegment.op_Equality(Nmx.Public.DE.ConnectionSegment,Nmx.Public.DE.ConnectionSegment)">
+            <summary>
+            Compare two instances for equality
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.ConnectionSegment.op_Inequality(Nmx.Public.DE.ConnectionSegment,Nmx.Public.DE.ConnectionSegment)">
+            <summary>
+            Compare two instances for inequality
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.DE.DeployExtensionOption">
+            <summary>
+            Class that describes the parameters for deploying extensions
+            </summary>    
+        </member>
+        <member name="P:Nmx.Public.DE.DeployExtensionOption.Id">
+            <summary>
+            Id of the deploy extension option. This string should be used as key to get actual value in the <see cref="P:Nmx.Public.DE.IDeployContext.DeployOptions"/> dictionary when the hook is run.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.DeployExtensionOption.Label">
+            <summary>
+            Label that will show next to the deploy extension option
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.DeployExtensionOption.DataType">
+            <summary>
+            Data type of the deploy extension option
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.DeployExtensionOption.DefaultValue">
+            <summary>
+            Should the option be deployed or not
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.DE.IDeployContext">
+            <summary>
+            Contains contextual information about the current deployment, as well as mechanism to report errors
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.IDeployContext.StatusReporter">
+            <summary>
+            Errors and status message reported by the extension here will appear in the deploy UI.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.IDeployContext.Workspace">
+            <summary>
+            The workspace that is being deployed
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.IDeployContext.DeployOptions">
+            <summary>
+            The user set parameters. The key correspond to the deploy parameters returned by the <see cref="M:Nmx.Public.DE.DeployExtension.GetDeployParameters"/> method.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.IDeployContext.GetOptionValue``1(System.String,``0)">
+            <summary>
+            Gets the value of a user set parameter.
+            </summary>
+            <typeparam name="T">The type of the value. Should match the type specified by the data type returned by the <see cref="M:Nmx.Public.DE.DeployExtension.GetDeployParameters"/> method</typeparam>
+            <param name="name">Name of the parameter</param>
+            <param name="fallbackValue">Fallback value to use if the specified parameter does not exist</param>
+        </member>
+        <member name="T:Nmx.Public.DE.NetworkWalkerStopCondition">
+            <summary>
+            Specifies when a network walker should stop 
+            </summary>
+        </member>
+        <member name="F:Nmx.Public.DE.NetworkWalkerStopCondition.None">
+            <summary>Reach everything that is electrically connected (will pass through open devices)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.NetworkWalkerStopCondition.NormalState">
+            <summary>Stop when reaching a device which is set to be normally open</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.NetworkWalkerStopCondition.VoltageLevel">
+            <summary>Stop when reaching another voltage level</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.NetworkWalkerStopCondition.Station">
+            <summary>Stop when reaching a device outside of the station. Start node must be in a station</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.NetworkWalkerStopCondition.Bay">
+            <summary>Stop when reaching a device outside of the bay. Start node must be in a bay</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.NetworkWalkerStopCondition.Subnet">
+            <summary>Stop when reaching a device outside of the subnet. Start node must be in a subnet</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.NetworkWalkerStopCondition.DirectlyConnected">
+            <summary>Connected to the same TERM as the start node</summary>
+        </member>
+        <member name="T:Nmx.Public.DE.NamespaceDoc">
+            <summary>
+            <para>
+            The DE namespace gives access to the data engineering network model. 
+            This public API is used in both deploy extensions as well as the different types of scripting aspects.
+            </para>
+            </summary>
+            <remarks>
+            <para>
+            Usually, the main entry point into the API is going to be through a <see cref="T:Nmx.Public.DE.Workspace"/> object which represents all the 
+            objects that exist in that workspace. Note that this includes unmodified objects from baseline as well as any objects 
+            that have been created in the workspace.</para>
+            <para>
+            From the workspace object, it’s possible to get a list of <see cref="T:Nmx.Public.DE.Modification"/> (representing creations, updates and deletes) that 
+            has happened in that workspace.
+            </para>
+            <img src="../Img/de.modification-uml.png" />
+            <p>
+            One of the most important class in the public API is the <see cref="T:Nmx.Public.DE.WorkspaceObject"/> class which represents a network model object that exist in that workspace.
+            
+            Examples of workspace objects are equipment such as switches, transformers or loads but also larger things like stations or transmission lines or 
+            nonphysical entities such as subnets.
+            <br/>
+            <img src="../Img/de.workspaceobject-uml.png" title="The WorkspaceObject class" /><br/>    
+            </p>
+            <p>All workspace objects have a <see cref="P:Nmx.Public.DE.WorkspaceObject.Name" />, <see cref="P:Nmx.Public.DE.WorkspaceObject.Id" /> and a type (<see cref="P:Nmx.Public.DE.WorkspaceObject.TypeName" /> or <see cref="P:Nmx.Public.DE.WorkspaceObject.TypeId" />).
+            Many objects also have a <see cref="P:Nmx.Public.DE.WorkspaceObject.Station" /> which points to the station that the object belongs to (this Station is also a WorkspaceObject).</p>
+            </remarks>
+        </member>
+        <member name="T:Nmx.Public.DE.StatusReporter">
+            <summary>
+            This is used to report status and error messages in the various places where the public API is used. This is also the base class for the <see cref="T:Nmx.Public.DE.ErrorReporter"/> which is used in engineering scripts and plausibility checks
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.StatusReporter.ReportError(System.String)">
+            <summary>
+            Reports a message with the <see cref="F:Nmx.Public.DE.ErrorSeverity.Error"/> severity.
+            </summary>
+            <param name="message">Message to report</param>
+        </member>
+        <member name="M:Nmx.Public.DE.StatusReporter.ReportWarning(System.String)">
+            <summary>
+            Reports a message with the <see cref="F:Nmx.Public.DE.ErrorSeverity.Warning"/> severity.
+            </summary>
+            <param name="message">Message to report</param>
+        </member>
+        <member name="M:Nmx.Public.DE.StatusReporter.ReportStatus(System.String)">
+            <summary>
+            Reports a message with the <see cref="F:Nmx.Public.DE.ErrorSeverity.Info"/> severity.
+            </summary>
+            <param name="message">Message to report</param>
+        </member>
+        <member name="M:Nmx.Public.DE.StatusReporter.Report(System.String,Nmx.Public.DE.ErrorSeverity)">
+            <summary>
+            Reports a message with the specified severity
+            </summary>
+            <param name="message">Message to report</param>
+            <param name="severity">Severity of the message</param>
+        </member>
+        <member name="T:Nmx.Public.DE.ErrorReporter">
+            <summary>
+            This is used to report errors in plausibility checks and engineering scripts.
+            </summary>
+            <seealso cref="T:Nmx.Public.DE.IPlausibilityCheck"/>
+        </member>
+        <member name="M:Nmx.Public.DE.ErrorReporter.Report(System.String,Nmx.Public.DE.ErrorSeverity)">
+            <summary>
+            Reports an error that is not associated with any particular object
+            </summary>
+            <param name="message">Message to report</param>
+            <param name="severity">Severity of the message</param>
+        </member>
+        <member name="M:Nmx.Public.DE.ErrorReporter.ReportError(Nmx.Public.DE.ErrorSeverity,System.String,Nmx.Public.DE.WorkspaceObject,Nmx.Public.DE.PropertyHandle[])">
+            <summary>
+            Report error for a workspace object.
+            </summary>
+            <param name="severity">The severity of the error.</param>
+            <param name="errorMessage">The message to display in the error list.</param>
+            <param name="errorObject">The object that has the error.</param>
+            <param name="properties">The properties (if any) that the error refers to.</param>
+            <seealso cref="T:Nmx.Public.DE.IPlausibilityCheck"/>
+        </member>
+        <member name="T:Nmx.Public.DE.DeployExtension">
+            <summary>
+            Base class for all deploy extensions. Extensions derived from this can choose to override one or more routines to become 
+            part of the deploy process.
+            </summary>
+            <remarks>
+            <p>Deploy extensions allow a third party to write custom software that will be executed by the Network Model Service at various point during deployment. 
+        In addition, deploy extensions are also able to stop the deployment at various defined points.</p><p>Deploy extensions are written as .NET assemblies, which means any .NET compatible language can be used (C#, VB.NET, F#, IronPython, etc.)</p><h4>Hooks</h4><para>
+            The following hooks are available:
+            <list type="bullet">
+                <item>
+                    <term>
+                        <see cref="M:Nmx.Public.DE.DeployExtension.CanStartLoad(Nmx.Public.DE.IDeployContext)">CanStartLoad</see>
+                    </term>
+                    <description>Called at the beginning of a deployment. If the extension returns a non-success status code, the deployment is aborted.</description>
+                </item>
+                <item>
+                    <term><see cref="M:Nmx.Public.DE.DeployExtension.OnLoadStarted(Nmx.Public.DE.IDeployContext)">OnLoadStarted</see>
+                    </term>
+                    <description>Called just before loading of data to Avanti has started.</description>
+                </item>
+                <item>
+                    <term>
+                        <see cref="M:Nmx.Public.DE.DeployExtension.OnLoadCompleted(Nmx.Public.DE.IDeployContext)">OnLoadCompleted</see>
+                    </term>
+                    <description>Called when data has been loaded to Avanti</description>
+                </item>
+                <item>
+                    <term>
+                        <see cref="M:Nmx.Public.DE.DeployExtension.CanStartApprove(Nmx.Public.DE.IDeployContext)">CanStartApprove</see>
+                    </term>
+                    <description>Called immediately when the user tries to approve data but before any approval has initiated. If the extension returns a non-success status code, the approval is aborted (but the data remains in Avanti).</description>
+                </item>
+                <item>
+                    <term>
+                        <see cref="M:Nmx.Public.DE.DeployExtension.OnApproveStarted(Nmx.Public.DE.IDeployContext)">OnApproveStarted</see>
+                    </term>
+                    <description>Called just before approval of Avanti data has started.</description>
+                </item>
+                <item>
+                    <term>
+                        <see cref="M:Nmx.Public.DE.DeployExtension.OnApproveCompleted(Nmx.Public.DE.IDeployContext)">OnApproveCompleted</see>
+                    </term>
+                    <description>Called after the approval has completed successfully. This marks the end of the deployment.</description>
+                </item>
+            </list>
+        </para><p>
+            The flowchart below shows where those hooks are in the entire deploy process – green indicate places where the extension gets to run
+            <br />
+            <img src="../Img/de.deploy-flowchart.png" />
+        </p><h4>Options and Parameters</h4><para>
+            Deploy extensions can provide a set of options that will be displayed to the user in the deploy window in PSE. The extension should return 
+            the list of supported options in the <see cref="M:Nmx.Public.DE.DeployExtension.GetDeployParameters" /> method. Each option returned by that method will appear in the deploy tool as a checkbox that the user can toggle. The user 
+            selected value is then passed to the extension's hook methods through the <see cref="P:Nmx.Public.DE.IDeployContext.DeployOptions" /> property. The key in that dictionary corresponds to the <see cref="P:Nmx.Public.DE.DeployExtensionOption.Id" /> of the corresponding deploy option.
+        </para>
+            </remarks>
+            <example>
+            <h4>Example deploy extension</h4>
+            <para>This sample deploy extension is demonstrating how an external system could be kept in sync with the NM system.</para>
+            <para>
+            It does this by first making sure the NM objects always have certain properties set so that we can cross reference them
+            Then it ensures that when those objects are modified, the relevant properties of the objects are written to the external system (in this case, the normal state of a switch)
+            It also makes sure that when an object is deleted in NM it is deleted in the external system.
+            </para>
+            <code language="cs">
+            <![CDATA[
+/// <summary>
+/// This sample deploy extension is demonstrating how an external system could be kept in sync with the NM system.
+///
+/// It does this by first making sure the NM objects always have certain properties set so that we can cross reference them
+/// Then it ensures that when those objects are modified, the relevant properties of the objects are written to the 
+/// external system (in this case, the normal state of a switch)
+/// It also makes sure that when an object is deleted in NM it is deleted in the external system.
+/// </remarks>
+[Export(typeof(DeployExtension))]
+public class SwitchChecker : DeployExtension
+{
+    public override string Name => "Switch Checker";
+    public override Guid Id { get; } = Guid.Parse("{6E5F78F8-3C60-4579-BB07-A2F92321AA53}");
+
+    /// <summary>
+    /// This will be called before the load is started. It gives extensions the ability to abort the deploy process.
+    /// </summary>
+    public override Result CanStartLoad(IDeployContext context)
+    {
+        // The workspace object is our entry into the deployed data. 
+        // Here we use it to get a list of all the modifications that are being deployed.
+        Workspace ws = context.Workspace;
+        foreach (Modification mod in ws.GetModifications(ObjectTypes.Switch, includeDerived: true))
+        {
+            if (mod.ModificationType != ModificationType.Deleted)
+                // For deleted objects we don't care about which properties they have - we're going to delete them anyway soon
+                continue;
+
+            // Check so that properties on the switch are set that are needed by the external system
+            dynamic wo = mod.WorkspaceObject;
+            // Since 'wo' is dynamic, all its properties can be accessed using wo.PROPERTY_NAME
+            // This is identical to: mod.WorkspaceObject.GetProperty<string>("EXTERNAL_IDENTITY");
+            string switchId = wo.EXTERNAL_IDENTITY;
+            if (String.IsNullOrWhiteSpace(switchId))
+                return Result.Failure("All switches must have an EXTERNAL_IDENTITY set");
+        }
+
+        return Result.Success;
+    }
+
+    private bool LookupSwitchInExternalSystem(string switchName)
+    {
+        // Here actual lookup logic would be implemented
+        return true;
+    }
+
+    /// <summary>
+    /// This is called after the data has been approved by the user and marks the end of the deploy cycle. This extension uses this opportunity to update an external system so that it is kept in sync with the
+    /// NM model
+    /// </summary>
+    public override void OnApproveCompleted(IDeployContext context)
+    {
+        Workspace ws = context.Workspace;
+        // Ensure our external system is kept in sync with NM
+        foreach (Modification mod in ws.GetModifications(ObjectTypes.Switch, includeDerived: true))
+        {
+            if (mod.ModificationType == ModificationType.Deleted)
+            {
+                // The switch was deleted, delete it in the external system
+                DeleteSwitchInExternalSystem(mod.ObjectId);
+            }
+            else
+            {
+                if (mod.ModificationType == ModificationType.Created)
+                {
+                    // The switch just got created, create it in the external system
+                    AddSwitchToExternalSystem(mod.WorkspaceObject);
+                }
+
+                dynamic wo = mod.WorkspaceObject;
+                if (wo.INDICATION_REF.NORMAL_STATUS == 3)
+                {
+                    // Normal off
+                    SetSwitchNormalStateInExternalSystem("Off");
+                }
+                else if (wo.INDICATION_REF.NORMAL_STATUS == 1)
+                {
+                    // Normal on
+                    SetSwitchNormalStateInExternalSystem("On");
+                }
+                else
+                {
+                    SetSwitchNormalStateInExternalSystem("Unknown");
+                }
+            }
+        }
+    }
+
+    private void AddSwitchToExternalSystem(WorkspaceObject addedSwitch)
+    {
+        // ..
+    }
+
+    private void SetSwitchNormalStateInExternalSystem(string normalState)
+    {
+        // ...
+    }
+
+    private void DeleteSwitchInExternalSystem(Guid switchObjectId)
+    {
+        // ...
+    }
+}]]>
+        </code>
+            </example>
+        </member>
+        <member name="P:Nmx.Public.DE.DeployExtension.Name">
+            <summary>
+            Name of the extension. This will be displayed in error messages and various logs.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.DeployExtension.Id">
+            <summary>
+            Unique Id of the extension. 
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.DeployExtension.IsAvailable">
+            <summary>
+            Is the extension available or not.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.DeployExtension.CanStartLoad(Nmx.Public.DE.IDeployContext)">
+            <summary>
+            Derived classes can override this to be able to control if a deploy should be allowed or not (default is allow).
+            </summary>
+            <param name="context">Information about the current deployment</param>
+            <example>
+            <code language="cs">
+            <![CDATA[
+public override Result CanStartLoad(IDeployContext context)
+{
+    Workspace ws = context.Workspace;
+    IList<Modification> modifications = ws.GetModifications();
+
+    StringBuilder sb = new StringBuilder();
+    foreach (var modification in modifications)
+    {
+        if (modification.ModificationType == ModificationType.Deleted)
+        {
+            if (modification.WorkspaceObject.IsOfType(ObjectTypes.Breaker))
+                return Result.Failure("Deleting of switches is not allowed");
+        }
+    }
+
+    LogMessage(sb.ToString());
+
+    return Result.Success;
+}]]>
+        </code>
+            </example>
+        </member>
+        <member name="M:Nmx.Public.DE.DeployExtension.OnLoadStarted(Nmx.Public.DE.IDeployContext)">
+            <summary>
+            Derived classes can override this to be notified when the loading part of a deployment has started
+            </summary>
+            <param name="context">Information about the current deployment</param>
+        </member>
+        <member name="M:Nmx.Public.DE.DeployExtension.OnLoadCompleted(Nmx.Public.DE.IDeployContext)">
+            <summary>
+            Derived classes can override this to be notified when the loading part of a deployment has completed
+            </summary>
+            <param name="context">Information about the current deployment</param>
+        </member>
+        <member name="M:Nmx.Public.DE.DeployExtension.CanStartApprove(Nmx.Public.DE.IDeployContext)">
+            <summary>
+            Derived classes can override this to be able to control if the deployed data should be allowed to be approved. (default is allow)
+            </summary>
+            <param name="context">Information about the current deployment</param>
+        </member>
+        <member name="M:Nmx.Public.DE.DeployExtension.OnApproveStarted(Nmx.Public.DE.IDeployContext)">
+            <summary>
+            Derived classes can override this to be notified when the deployment is being approved
+            </summary>
+            <param name="context">Information about the current deployment</param>
+        </member>
+        <member name="M:Nmx.Public.DE.DeployExtension.OnApproveCompleted(Nmx.Public.DE.IDeployContext)">
+            <summary>
+            Derived classes can override this to be notified when the deployment has been approved
+            </summary>
+            <param name="context">Information about the current deployment</param>
+        </member>
+        <member name="M:Nmx.Public.DE.DeployExtension.OnRejectStarted(Nmx.Public.DE.IDeployContext)">
+            <summary>
+            Derived classes can override this to be notified when the deployment is being rejected
+            </summary>
+            <param name="context">Information about the current deployment</param>
+        </member>
+        <member name="M:Nmx.Public.DE.DeployExtension.OnRejectCompleted(Nmx.Public.DE.IDeployContext)">
+            <summary>
+            Derived classes can override this to be notified when the deployment has been rejected
+            </summary>
+            <param name="context">Information about the current deployment</param>
+        </member>
+        <member name="M:Nmx.Public.DE.DeployExtension.GetDeployParameters">
+            <summary>
+            Can be overridden by extensions to provide options that will be displayed to the user in the deploy UI. The user selection will be passed to the extension in the deployOptions parameter.
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.DE.ErrorSeverity">
+            <summary>
+            Severity of the error reported by a <see cref="T:Nmx.Public.DE.IPlausibilityCheck"/>.
+            </summary>
+            <seealso cref="M:Nmx.Public.DE.ErrorReporter.ReportError(Nmx.Public.DE.ErrorSeverity,System.String,Nmx.Public.DE.WorkspaceObject,Nmx.Public.DE.PropertyHandle[])"/>
+            <seealso cref="T:Nmx.Public.DE.IPlausibilityCheck"/>
+        </member>
+        <member name="F:Nmx.Public.DE.ErrorSeverity.Error">
+            <summary>
+            This is a error and must be resolved.
+            </summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ErrorSeverity.Warning">
+            <summary>
+            This error is a warning, may or may not be resolved.
+            </summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ErrorSeverity.Info">
+            <summary>
+            This is a informational.
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.DE.IEngineeringConfigurationScript">
+             <summary>
+             Interface implemented by custom scripts that can be executed on objects.
+             </summary>
+             <remarks>
+            
+             </remarks>
+        </member>
+        <member name="M:Nmx.Public.DE.IEngineeringConfigurationScript.Execute(Nmx.Public.DE.Workspace,Nmx.Public.DE.WorkspaceObject,Nmx.Public.DE.ErrorReporter,Nmx.Public.ScriptMessages)">
+            <summary>
+            This method is called when an engineering configuration script is run.
+            changes.
+            </summary>
+            <param name="ws">Current workspace used.</param>
+            <param name="wsObject">Engineering configuration object that is the target for the script run.</param>
+            <param name="errors">To report any error.</param>
+            <param name="sms">NLS based script messages that can be used in error reporting.</param>
+        </member>
+        <member name="T:Nmx.Public.DE.EngineeringConfigurationScriptBase">
+             <summary>
+             Interface implemented by custom scripts that can be executed on objects.
+             </summary>
+             <remarks>
+            
+             </remarks>
+        </member>
+        <member name="P:Nmx.Public.DE.EngineeringConfigurationScriptBase.Arguments">
+            <summary>
+            Arguments that are passed to the script aspect.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.EngineeringConfigurationScriptBase.Logger">
+            <summary>
+            Logger which logs messages, mostly for debugging purpose.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.EngineeringConfigurationScriptBase.Messages">
+            <summary>
+            Accessor for script messages for NLS string support from
+            the script.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.EngineeringConfigurationScriptBase.Context">
+            <summary>
+            Execution context for this script aspect run.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.EngineeringConfigurationScriptBase.Errors">
+            <summary>
+            Accessor for error reporting for this script aspect.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.EngineeringConfigurationScriptBase.Workspace">
+            <summary>
+            The workspace of the network model. 
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.EngineeringConfigurationScriptBase.Execute(Nmx.Public.DE.WorkspaceObject[])">
+            <summary>
+            This method is called when an engineering configuration script is run.
+            changes.
+            </summary>
+            <param name="wsObjects">Engineering configuration objects that this script may
+            run on.</param>
+        </member>
+        <member name="M:Nmx.Public.DE.EngineeringConfigurationScriptBase.Init(Nmx.Public.DE.Workspace,Nmx.Public.DE.ErrorReporter,Nmx.Public.ScriptContext)">
+            <summary>
+            This method should be called before the Execute method
+            to set the required accessors. This method is called by the
+            script framework.
+            </summary>
+            <param name="ws"></param>
+            <param name="er"></param>
+            <param name="ctx"></param>
+        </member>
+        <member name="T:Nmx.Public.DE.IPlausibilityCheck">
+            <summary>
+            Public interface for implementing custom plausibility check.
+            </summary>
+            <remarks>
+            <p>
+            Plausibility checks are run on the network data model to detect errors and inconsistencies in the data which
+            can cause SCADA/EMS applications to fail in the NM runtime system.
+        </p><p>
+            The scripting model used by the plausibility framework in NM makes it possible to add new plausibility checks without the
+            distribution complexity normally associated with software development. Newly added or updated scripts can immediately be
+            tested on the current network data model.
+        </p><p>
+            The typical workflow for developing plausibility checks is:
+            <list type="numbers">
+                <item>Add new checks(or delete or modify existing checks).</item>
+                <item>Run the checks manually/automatically to run upon network data model changes.</item>
+                <item>View the errors found by the checks in worklist tool.</item>
+            </list>
+        </p><p>
+            Since the script contains arbitrary C# code, it is possible to combine multiple checks in a single ‘Plausibility Check’ aspect to
+            reduce the number of scripts that need to be created and maintained.
+        </p>
+            </remarks>
+            <example>
+            <h4>Example plausiblity check</h4>
+            <code language="cs">
+            <![CDATA[
+public class StationConnectivities : IPlausibilityCheck 
+{
+    public void Check(Workspace ws, ErrorReporter er, ScriptMessages sms) 
+    {
+        // Get a list of all the stations in the workspace
+        IList<WorkspaceObject> cos = ws.GetObjects("Station", true);
+        int objectCount = cos.Count;
+        if (objectCount == 0) 
+        {
+            // Report a warning that there are no stations in the system
+            er.ReportError(ErrorSeverity.Warning, sms.Message("NoObjectsFound", "Station"), null);
+        }
+    }
+}            
+            ]]>
+        </code>
+            </example>
+            <seealso cref="T:Nmx.Public.DE.IEngineeringConfigurationScript">IEngineeringConfigurationScript</seealso>
+            <seealso cref="T:Nmx.Public.ScriptMessages">NLS Support (ScriptMessages)</seealso>
+            <seealso cref="T:Nmx.Public.DE.ErrorReporter">Error Reporting</seealso>
+        </member>
+        <member name="M:Nmx.Public.DE.IPlausibilityCheck.Check(Nmx.Public.DE.Workspace,Nmx.Public.DE.ErrorReporter,Nmx.Public.ScriptMessages)">
+            <summary>
+            Method to implement the actual plausibility check. 
+            </summary>
+            <remarks>
+            This method will be called by the framework when its time to re-calculate all the errors for the plausibility checks. 
+            The method should perform all applicable checks and report any issues it finds in the <paramref name="errors"/> parameter.
+            </remarks>
+            <param name="ws">Current workspace used.</param>
+            <param name="errors">Error reported to report any error.</param>
+            <param name="sms">NLS based script messages that can be used in error reporting.</param>
+            <seealso cref="T:Nmx.Public.ScriptMessages">NLS Support (ScriptMessages)</seealso>
+            <seealso cref="T:Nmx.Public.DE.ErrorReporter">Error Reporting</seealso>
+        </member>
+        <member name="T:Nmx.Public.DE.INetworkWalker">
+            <summary>
+            The network walker can traverse the network of connected devices. You can obtain a walker from the workspace object by calling <see cref="M:Nmx.Public.DE.WorkspaceObject.GetNetworkWalker" />.
+            </summary>
+            <remarks>
+            <para>
+            Once you have a network walker, you can ask it to <see cref="M:Nmx.Public.DE.INetworkWalker.Traverse" /> the network. This will allow you to iterate over all the objects that are connected to the start object.
+            <br />
+            The default behavior is to trace all directions from the start node,
+            but you can also specify a side in the <see cref="M:Nmx.Public.DE.INetworkWalker.Traverse(System.Int32)" /> metod. When a side is specified, only objects on that side of the network will be traced.
+            <br />
+            You can also ask it to find the (shortest) path to another object in the network through the <see cref="M:Nmx.Public.DE.INetworkWalker.ShortestPath(Nmx.Public.DE.WorkspaceObject)" /> method.
+            </para>
+            <br />
+            <img src="../img/de.networkwalker-uml.png" title="The Network Walker interface" />
+            <h4>Connectivity Model</h4><para>
+            The network connectivity is modelled through the <see cref="T:Nmx.Public.DE.ConnectionPoint" /> and <see cref="T:Nmx.Public.DE.ConnectionSegment" /> classes. They are exposed from the workspace object:
+            <list type="bullet">
+                <item>Each workspace object has one or more ConnectionPoint (the <see cref="P:Nmx.Public.DE.WorkspaceObject.Connections" /> property). Each connection point has a reference to the ConnectionSegment 
+                the object is connected to on that side.
+                Think of the connection point as being attached to the object itself while the ConnectionSegment matches the TERMS in the DE data model.</item>
+                <item>The connection segment on the other hand has a list of ConnectionPoints that are attached to it.</item>
+            </list>
+            <br />
+            <img src="../img/de.connectivity-overview.png" title="How connectivity is modeled in the API" />
+        </para>
+            </remarks>
+            <example>
+            <h4>List all objects in a bay</h4>
+            <code language="cs">
+<![CDATA[
+private IList<WorkspaceObject> GetAllObjectsInBay(WorkspaceObject device, int maxObjects)
+{
+    if (device == null || device.Connections.Count == 0)
+        return null;
+    
+    var walker = device.GetNetworkWalker();
+    walker.StopCondition = NetworkWalkerStopCondition.Bay;
+    
+    // As a safeguard, only take at most "maxObjects" number of objects
+    return walker.Traverse().Take(maxObjects).ToList();
+}]]>
+        </code>
+            <h4>Finding shortest path to a transformer</h4>
+            <code language="cs">
+<![CDATA[
+// Get the object to start the trace from
+WorkspaceObject start = workspace.GetObject("STATION1 400 BREAKER E", ObjectTypes.Breaker);
+INetworkWalker walker = start.GetNetworkWalker();
+// Only interested in transformers that belong to this station
+walker.StopCondition = NetworkWalkerStopCondition.Station;
+
+// "path" will contain the sequence of objects that lead to the nearest transformer
+IList<WorkspaceObject> path = walker.ShortestPath(node => 
+                                        node.IsOfType(ObjectTypes.TwoWindingTransformer) ||
+                                        node.IsOfType(ObjectTypes.ThreeWindingTransformer));]]>
+        </code>
+            </example>
+        </member>
+        <member name="P:Nmx.Public.DE.INetworkWalker.StopCondition">
+            <summary>
+            Can be set to control when the walker should stop (for example if it reaches the boundarys of the station)
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.INetworkWalker.StartNode">
+            <summary>
+            The device where the walker starts.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.INetworkWalker.Traverse">
+            <summary>
+            Performs a traversal of the network. Objects are lazily evaluated to avoid excessive memory usage.
+            </summary>
+            <example>
+            <h4>List all objects in a bay</h4>
+            <code language="cs">
+<![CDATA[
+private IList<WorkspaceObject> GetAllObjectsInBay(WorkspaceObject device, int maxObjects)
+{
+    if (device == null || device.Connections.Count == 0)
+        return null;
+    
+    var walker = device.GetNetworkWalker();
+    walker.StopCondition = NetworkWalkerStopCondition.Bay;
+    
+    // As a safeguard, only take at most "maxObjects" number of objects
+    return walker.Traverse().Take(maxObjects).ToList();
+}]]>
+        </code>
+            </example>
+        </member>
+        <member name="M:Nmx.Public.DE.INetworkWalker.Traverse(System.Int32)">
+            <summary>
+            Performs a traversal of the network limited to the specified side of the device.
+            Objects are lazily evaluated to avoid excessive memory usage.
+            </summary>
+            <example>
+            <h4>List all objects in a bay</h4>
+            <code language="cs">
+<![CDATA[
+private IList<WorkspaceObject> GetAllObjectsInBay(WorkspaceObject device, int maxObjects)
+{
+    if (device == null || device.Connections.Count == 0)
+        return null;
+    
+    var walker = device.GetNetworkWalker();
+    walker.StopCondition = NetworkWalkerStopCondition.Bay;
+    
+    // As a safeguard, only take at most "maxObjects" number of objects
+    return walker.Traverse().Take(maxObjects).ToList();
+}]]>
+        </code>
+            </example>
+        </member>
+        <member name="M:Nmx.Public.DE.INetworkWalker.ShortestPath(System.Func{Nmx.Public.DE.WorkspaceObject,System.Boolean})">
+            <summary>
+            Traverses the network looking for the shortest path to the object where the specified <paramref name="stopConditionFunc" /> returns true
+            </summary>
+            <param name="stopConditionFunc">Function that gets called for each object. When it returns true, the search ends and the shortest path to that node is returned</param>
+            <returns>The path, represented by a list of nodes that need to be visited in order to reach the end node.</returns>
+            <example>
+            <h4>Finding shortest path to a transformer</h4>
+            <code language="cs">
+<![CDATA[
+// Get the object to start the trace from
+WorkspaceObject start = workspace.GetObject("STATION1 400 BREAKER E", ObjectTypes.Breaker);
+INetworkWalker walker = start.GetNetworkWalker();
+// Only interested in transformers that belong to this station
+walker.StopCondition = NetworkWalkerStopCondition.Station;
+
+// "path" will contain the sequence of objects that lead to the nearest transformer
+IList<WorkspaceObject> path = walker.ShortestPath(node => 
+                                        node.IsOfType(ObjectTypes.TwoWindingTransformer) ||
+                                        node.IsOfType(ObjectTypes.ThreeWindingTransformer));]]>
+        </code>
+            </example>
+        </member>
+        <member name="M:Nmx.Public.DE.INetworkWalker.ShortestPath(Nmx.Public.DE.WorkspaceObject)">
+            <summary>
+            Traverses the network looking for the shortest path to the specified destination object.
+            </summary>
+            <param name="destination">The object to find the shortest path to.</param>
+            <returns>The path, represented by a list of nodes that need to be visited in order to reach the destination node.</returns>
+            <example>
+            <h4>Finding shortest path to a transformer</h4>
+            <code language="cs">
+<![CDATA[
+// Get the object to start the trace from
+WorkspaceObject start = workspace.GetObject("STATION1 400 BREAKER E", ObjectTypes.Breaker);
+INetworkWalker walker = start.GetNetworkWalker();
+// Only interested in transformers that belong to this station
+walker.StopCondition = NetworkWalkerStopCondition.Station;
+
+// "path" will contain the sequence of objects that lead to the nearest transformer
+IList<WorkspaceObject> path = walker.ShortestPath(node => 
+                                        node.IsOfType(ObjectTypes.TwoWindingTransformer) ||
+                                        node.IsOfType(ObjectTypes.ThreeWindingTransformer));]]>
+        </code>
+            </example>
+        </member>
+        <member name="M:Nmx.Public.DE.INetworkWalker.GetDirectlyConnectedPoints">
+            <summary>
+            This method is temporary and will be removed, when the problem with
+            connectivities is resolved
+            Gets the points that are connected directly to the this device
+            It uses the TERM properties in each point to find the directly connected device.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nmx.Public.DE.Modification">
+            <summary>
+            Represents a modification
+            </summary>
+            <remarks>
+            <img src="../Img/de.modification-uml.png" />
+            </remarks>
+        </member>
+        <member name="P:Nmx.Public.DE.Modification.ObjectId">
+            <summary>
+            The unique ID of the object that was modified.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.Modification.ModificationType">
+            <summary>
+            The type of modification.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.Modification.WorkspaceObject">
+            <summary>
+            Gets the workspace object that was modified. Note that this will be null for deleted objects.
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.DE.ModificationType">
+            <summary>
+            The type of modification that was done to the object in this workspace
+            </summary>
+            <remarks>
+            <img src="../Img/de.modification-uml.png" />
+            </remarks>
+        </member>
+        <member name="F:Nmx.Public.DE.ModificationType.None">
+            <summary>Object was not modified.</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ModificationType.Created">
+            <summary>Object was created in this workspace.</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ModificationType.Updated">
+            <summary>The object existed before but was modified in this workspace.</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ModificationType.Deleted">
+            <summary>Object was deleted in this workspace.</summary>
+        </member>
+        <member name="T:Nmx.Public.DE.ObjectSpace">
+            <summary>
+            The ObjectSpace is the world object containing all the objects and all the workspaces in the system
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.ObjectSpace.GetWorkspace(System.String)">
+            <summary>
+            Gets the workspace with the specified name. If no such workspace exists, null is returned. If more than one workspace matches, then the first match is returned.
+            </summary>
+            <param name="name">Name of the workspace to get.</param>
+        </member>
+        <member name="P:Nmx.Public.DE.ObjectSpace.Current">
+            <summary>
+            Gets the current workspace. If no current workspace is set, then this property is null. 
+            </summary>
+            <remarks>
+            Typically, only the PSE Workplace use the concept of a "current workspace". Extensions running inside the access servers, for example
+            deploy extensions will not have a current workspace.
+            </remarks>
+        </member>
+        <member name="T:Nmx.Public.DE.ObjectTypes">
+            <summary>
+             Constants for the existing object types
+            </summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Accumulator">
+            <summary>Id of object type "Accumulator". DB table: ACCUMULATOR, Avanti file: ACCUMULATOR (12)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AccumulatorAlarmGroup">
+            <summary>Id of object type "Accumulator Alarm Group". DB table: ALARM_GROUP_ACCU, Avanti file: ALARM GROUP ACCU (605)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AccumulatorRedundantDataValues">
+            <summary>Id of object type "Accumulator Redundant Data Values". DB table: RED_DATA_VALUES_ACC, Avanti file: RED DATA VALUES ACC (55394)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AccumulatorSapGroup">
+            <summary>Id of object type "Accumulator SAP Group". DB table: SAP_GROUPS_ACCU, Avanti file: SAP GROUPS ACCU (40134)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ActiveArea">
+            <summary>Id of object type "Active Area". DB table: ACTIVE_AREA, Avanti file: ACTIVE_AREA (54327)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Adc">
+            <summary>Id of object type "ADC". DB table: ADC, Avanti file: ADC (40876)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AgcFrequency">
+            <summary>Id of object type "AGC Frequency". DB table: AGC_FREQUENCY, Avanti file: AGCFREQUENCY (40677)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AgcJointlyOwnedUnit">
+            <summary>Id of object type "AGC Jointly Owned Unit". DB table: AGC_JOU, Avanti file: AGCJOU (40681)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AgcLoad">
+            <summary>Id of object type "AGC Load". DB table: AGC_LOAD, Avanti file: AGCLOAD (40678)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AgcMarketGroup">
+            <summary>Id of object type "AGC Market Group". DB table: AGC_MARKET_GROUP, Avanti file: AGC MARKET GROUP (54288)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AgcPlant">
+            <summary>Id of object type "AGC Plant". DB table: AGC_PLANT, Avanti file: AGCPLANT (40679)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AgcTieLine">
+            <summary>Id of object type "AGC Tie Line". DB table: AGC_TIE_LINE, Avanti file: AGCTIELINE (40108)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AgcUnit">
+            <summary>Id of object type "AGC Unit". DB table: AGC_UNIT, Avanti file: AGCUNIT (40092)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AlarmClass">
+            <summary>Id of object type "Alarm Class". DB table: ALARM_CLASS, Avanti file: ALARM CLASS (475)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AlarmGroup">
+            <summary>Id of object type "Alarm Group". DB table: ALARM_GROUP, Avanti file: ALARM GROUP (559)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AlarmSpecialGroupIndication">
+            <summary>Id of object type "Alarm Special Group Indication". DB table: ALARM_SPEC_GROUP, Avanti file: ALARM SPEC GROUP (158)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AngleDifferenceLimits">
+            <summary>Id of object type "Angle Difference Limits". DB table: ANGLE_DIFF_LIMITS, Avanti file: ANGLE_DIFF_LIMITS (40610)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ApplicationsDataMappingToHistorian">
+            <summary>Id of object type "Applications Data Mapping to Historian". DB table: APPS_UDW_LOG, Avanti file: APPS_UDW_LOG (46419)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Area">
+            <summary>Id of object type "Area". DB table: SUBSYSTEM, Avanti file: SUBSYSTEM (260)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ArtcAggregate">
+            <summary>Id of object type "ARTC Aggregate". DB table: CALCULATION_AGGREGATE, Avanti file: DE CALC AGG (40887)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ArtcAggregateObject">
+            <summary>Id of object type "ARTC Aggregate Object". DB table: CALCULATION_AGGR_OBJECT, Avanti file: DE CALC AGG OBJ (40888)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ArtcCalculation">
+            <summary>Id of object type "ARTC Calculation". DB table: ONE_CALCULATION, Avanti file: DE CALC (40886)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ArtcTemplateCode">
+            <summary>Id of object type "ARTC Template Code". DB table: CALCULATION_TEMPLATE, Avanti file: DE CALC TEMPL (40889)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AutomaticLoadTransfer">
+            <summary>Id of object type "Automatic Load Transfer". DB table: LOAD_TRANSF, Avanti file: LOAD_TRANSF (40650)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AuxiliaryLoadData">
+            <summary>Id of object type "Auxiliary Load Data". DB table: AUXLOAD_DATA, Avanti file: AUXLOAD_DATA (40997)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.AvantiHistorization">
+            <summary>Id of object type "Avanti Historization".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.BaseVoltage">
+            <summary>Id of object type "Base Voltage". DB table: BASE_VOLTAGE, Avanti file: BASE_VOLTAGE (40970)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Bay">
+            <summary>Id of object type "Bay". DB table: BAY, Avanti file: BAY (21)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Boiler">
+            <summary>Id of object type "Boiler". DB table: BOILER, Avanti file: BOILER (555)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.BranchGroup">
+            <summary>Id of object type "Branch Group". DB table: BRANCHGROUP, Avanti file: BRANCHGROUP (653)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.BranchGroupEquipment">
+            <summary>Id of object type "Branch Group Equipment". DB table: BRANCHGROUP_EQ, Avanti file: BRANCHGROUP_EQ (654)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Breaker">
+            <summary>Id of object type "Breaker".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Bus">
+            <summary>Id of object type "Bus". DB table: BUS, Avanti file: BUS (407)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.BusNameMarker">
+            <summary>Id of object type "Bus Name Marker". DB table: BUS_NAME_MARKER, Avanti file: BUS_NAME_MARKER (54012)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ColorReferencePoint">
+            <summary>Id of object type "Color Reference Point". DB table: COLOUR_REF_POINT, Avanti file: COLOUR_REF_POINT (586)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.CommunicationLine">
+            <summary>Id of object type "Communication Line". DB table: COM_LINE, Avanti file: COM LINE (113)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Company">
+            <summary>Id of object type "Company". DB table: COMPANY, Avanti file: COMPANY (602)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ControlArea">
+            <summary>Id of object type "Control Area". DB table: CONTROL_AREA, Avanti file: CONTROL AREA (300)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ControlAreaConnection">
+            <summary>Id of object type "Control Area Connection". DB table: CONTROL_AREA_CONNECTION, Avanti file: CONTROL AREA CONNECTION (54325)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ControlGroup">
+            <summary>Id of object type "SCADA Object".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ControllerProfile">
+            <summary>Id of object type "Controller Profile". DB table: CONTROLLER_PROFILE</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Curve">
+            <summary>Id of object type "Curve". DB table: CURVE, Avanti file: CURVE (55297)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.CurveData">
+            <summary>Id of object type "Curve Data". DB table: CURVE_DATA, Avanti file: CURVE_DATA (55298)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.CustomerClass">
+            <summary>Id of object type "Customer Class". DB table: CUSTOMER_CLASS, Avanti file: CUSTOMER CLASS (692)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.DailyProfile">
+            <summary>Id of object type "Daily Profile". DB table: DAILY_PROFILES, Avanti file: DAILY PROFILES (693)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Dataset">
+            <summary>Id of object type "Dataset". DB table: HIS_DATASET</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.DayType">
+            <summary>Id of object type "Day Type". DB table: DAY_TYPE, Avanti file: DAY_TYPE (40712)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.DcLink">
+            <summary>Id of object type "DC Link". DB table: DC_LINK, Avanti file: DC_LINK (40641)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.DciExport">
+            <summary>Id of object type "DCI Export". DB table: DCI_EXPORT, Avanti file: DCI EXPORT (40632)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.DciFormat">
+            <summary>Id of object type "DCI Format". DB table: DCI_FORMAT</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.DciImport">
+            <summary>Id of object type "DCI Import". DB table: DCI_IMPORT, Avanti file: DCI IMPORT (40633)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.DciXref">
+            <summary>Id of object type "DCI Xref". DB table: DCI_XREF, Avanti file: DCI XREF (40631)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.DeviceRtu">
+            <summary>Id of object type "Device RTU".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.District">
+            <summary>Id of object type "District". DB table: DISTRICT</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.EarthSwitch">
+            <summary>Id of object type "Earth Switch".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ElcomControl">
+            <summary>Id of object type "ELCOM Control". DB table: ELCOM_CONTROL, Avanti file: ELCOM CONTROL (320)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ElcomGroupDescriptionInitiator">
+            <summary>Id of object type "ELCOM Group Description Initiator". DB table: ELCOMGROUP_DESCR_INIT, Avanti file: ELCOM GROUP DESCR_INIT (323)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ElcomGroupDescriptionResponder">
+            <summary>Id of object type "ELCOM Group Description Responder". DB table: ELCOMGROUP_DESCR_RESP, Avanti file: ELCOM GROUP DESCR_RESP (426)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ElcomInitiatorObject">
+            <summary>Id of object type "ELCOM Initiator Object". DB table: ELCOMOBJ_DESCR_INIT, Avanti file: ELCOM OBJ DESCR_INIT (325)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ElcomItem">
+            <summary>Id of object type "ELCOM Item". DB table: ELCOM_ITEM_LOV</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ElcomPredefinedResponderObject">
+            <summary>Id of object type "ELCOM Predefined Responder Object". DB table: ELCOMOBJ_DESCR_RESP, Avanti file: ELCOM OBJ DESCR_RESP (430)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ElcomRemoteAddress">
+            <summary>Id of object type "ELCOM Remote Address". DB table: ELCOM_REMOTE_ADR, Avanti file: ELCOM REMOTE ADR (322)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ElcomResponderObject">
+            <summary>Id of object type "ELCOM Responder Object". DB table: ELCOM_NAME_XREF, Avanti file: ELCOM NAME XREF (321)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.EquipmentStatistics">
+            <summary>Id of object type "Equipment Statistics". DB table: EQS_DATA, Avanti file: EQS DATA (59)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.EquipmentTimeCurve">
+            <summary>Id of object type "Equipment Time Curve". DB table: EQUIPMENT_TIME_CURVE, Avanti file: EQUIPMENT_TIME_CURVE (40726)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.EventOverviewGroup">
+            <summary>Id of object type "Event Overview Group". DB table: EVENT_OVERVIEW, Avanti file: EVENT OVERVIEW (241)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ExtendedIndications">
+            <summary>Id of object type "Extended Indications". DB table: OTSDE_TELIDXD, Avanti file: OTSDE_TELIDXD (28199)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ExtendedMeasurands">
+            <summary>Id of object type "Extended Measurands". DB table: OTSDE_TELIDXA, Avanti file: OTSDE_TELIDXA (28198)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.FaultIndicator">
+            <summary>Id of object type "Fault Indicator". DB table: FAULT_INDICATOR</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Feeder">
+            <summary>Id of object type "Feeder". DB table: FEEDER</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.FeedingPoint">
+            <summary>Id of object type "Feeding Point ". DB table: FEEDING_POINT, Avanti file: FEEDINGPOINT (40107)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.FrequencyMeasurands">
+            <summary>Id of object type "Frequency Measurands". DB table: OTSDE_FRQBUS, Avanti file: OTSDE_FRQBUS (28197)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.FuelType">
+            <summary>Id of object type "Fuel Type". DB table: FUEL_TYPE, Avanti file: FUEL TYPE (520)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.FuelUnit">
+            <summary>Id of object type "Fuel Unit". DB table: FUEL_UNIT, Avanti file: FUEL UNIT (966)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.GeneralOutput">
+            <summary>Id of object type "General Output". DB table: GENERAL_OUTPUT, Avanti file: GENERAL OUTPUT (380)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.GenerationBlock">
+            <summary>Id of object type "Generation Block". DB table: GEN_BLOCK, Avanti file: GEN BLOCK (40164)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Generator">
+            <summary>Id of object type "Generator". DB table: GENERATOR, Avanti file: GENERATOR (414)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.GeneratorType">
+            <summary>Id of object type "Generator Type". DB table: GEN_TYPE, Avanti file: GEN_TYPE (612)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.GenopsCombinedCycleConfiguration">
+            <summary>Id of object type "GenOps Combined Cycle Configuration". DB table: GENOPS_CC_CONFIG, Avanti file: GENOPSCCCONFIG (55341)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.GeographicLocation">
+            <summary>Id of object type "Geographic Location". DB table: LOCATION, Avanti file: LOCATION (54338)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.GeographicProjectionSystem">
+            <summary>Id of object type "Geographic Projection System". DB table: GEO_PROJECTION, Avanti file: GEO_PROJECTION (54339)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.GeographicRegion">
+            <summary>Id of object type "Geographic Region". DB table: GEO_REGION, Avanti file: GEO_REGION (224)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.GeographicSubRegion">
+            <summary>Id of object type "Geographic Sub Region". DB table: GEO_SUB_REGION, Avanti file: GEO_SUBREGION (225)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.GradientCheck">
+            <summary>Id of object type "Gradient Check". DB table: GRADIENT_CHECK, Avanti file: GRADIENT CHECK (110)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianConfiguration">
+            <summary>Id of object type "Historian Configuration". DB table: HIS_CONFIGURATION</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianDataset">
+            <summary>Id of object type "Historian Dataset". DB table: HIS_OTY_DTS_XREF, Avanti file: HIS DATASET (55384)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianObjectType">
+            <summary>Id of object type "Historian Object Type". DB table: HIS_OBJECT_TYPE, Avanti file: HIS OBJECT TYPE (55382)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianPattern">
+            <summary>Id of object type "Historian Pattern". DB table: HIS_TYPE_XREF, Avanti file: HIS PATTERN (55383)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianPeriod">
+            <summary>Id of object type "Historian Period". DB table: HIS_PERIOD, Avanti file: HIS PERIOD (55379)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianProfileDetails">
+            <summary>Id of object type "Historian Profile Details". DB table: HIS_PROFILE_DETAILS, Avanti file: HIS PROFILE DETAILS (55381)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianPropertyMapping">
+            <summary>Id of object type "Historian Property Mapping". DB table: HIS_PROPERTY_MAPPING, Avanti file: HIS PROPERTY MAPPING (55388)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianPropertyProfile">
+            <summary>Id of object type "Historian Property Profile". DB table: HIS_PROPERTY_PROFILE, Avanti file: HIS PROPERTY PROFILE (55380)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianQualityPropagationRule">
+            <summary>Id of object type "Historian Quality Propagation Rule". DB table: HIS_QPROP_RULE, Avanti file: HIS QPROP (55398)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianQualityPropagationRuleDetails">
+            <summary>Id of object type "Historian Quality Propagation Rule Details". DB table: HIS_QPROP_RULE_QCO, Avanti file: HIS QPROP RULE (55395)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianQualityState">
+            <summary>Id of object type "Historian Quality State". DB table: HIS_QUALITY_STATE</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HistorianType">
+            <summary>Id of object type "Historian Type". DB table: HIS_TYPE</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HvdcCompensationEquipment">
+            <summary>Id of object type "HVDC Compensation Equipment". DB table: HVDC_COMPENSATION_EQUIP, Avanti file: HVDC_COMPENSATION_EQUIP (40901)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HvdcMinimumFilter">
+            <summary>Id of object type "HVDC Minimum Filter". DB table: HVDC_MINIMUM_FILTER, Avanti file: HVDC_MINIMUM_FILTER (40902)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HvdcParameters">
+            <summary>Id of object type "HVDC Parameters". DB table: HVDC_PARAMETERS, Avanti file: HVDC_PARAMETERS (40899)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HvdcPole">
+            <summary>Id of object type "HVDC Pole". DB table: HVDC_POLE, Avanti file: HVDC_POLE (40900)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HvdcTerminal">
+            <summary>Id of object type "HVDC Terminal". DB table: HVDC_TERMINAL, Avanti file: HVDC_TERMINAL (40898)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HydroCanal">
+            <summary>Id of object type "Hydro Canal". DB table: HYDRO_CANAL, Avanti file: HYDRO CANAL (40717)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HydroCurveAfterbay">
+            <summary>Id of object type "Hydro Curve Afterbay". DB table: HYDRO_CURVE_ABE, Avanti file: HYDRO CURVE ABE (40719)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HydroCurveLoss">
+            <summary>Id of object type "Hydro Curve Loss". DB table: HYDRO_CURVE_LOSS, Avanti file: HYDRO CURVE LOSS (40720)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HydroCurveMarginalWater">
+            <summary>Id of object type "Hydro Curve Marginal Water". DB table: HYDRO_CURVE_WATER, Avanti file: HYDRO CURVE WATER (40721)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HydroCurvePump">
+            <summary>Id of object type "Hydro Curve Pump". DB table: HYDRO_CURVE_PMP, Avanti file: HYDRO CURVE PMP (40709)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HydroCurveWaterFlowRelease">
+            <summary>Id of object type "Hydro Curve Water Flow Release". DB table: HYDRO_CURVE_WFR, Avanti file: HYDRO CURVE WFR (40708)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HydroPlant">
+            <summary>Id of object type "Hydro Plant". DB table: HYDRO_PLANT, Avanti file: HYDRO PLANT (40718)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HydroReservoir">
+            <summary>Id of object type "Hydro Reservoir". DB table: HYDRO_RESERVOIR, Avanti file: HYDRO RESERVOIR (40716)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HydroRiver">
+            <summary>Id of object type "Hydro River". DB table: HYDRO_RIVER, Avanti file: HYDRO RIVER (40724)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HydroUnit">
+            <summary>Id of object type "Hydro Unit". DB table: HYDRO_UNIT, Avanti file: HYDRO UNIT (553)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.HydroWatershed">
+            <summary>Id of object type "Hydro Watershed". DB table: HYDRO_WATERSHED, Avanti file: HYDRO WATERSHED (40725)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpAssociation">
+            <summary>Id of object type "ICCP Association". DB table: IDASSN, Avanti file: IDASSN (16142)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpBilateralTable">
+            <summary>Id of object type "ICCP Bilateral Table". DB table: IDBTBL, Avanti file: IDBTBL (16141)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpBlock4MessageType">
+            <summary>Id of object type "ICCP Block 4 Message Type". DB table: IDTTYP, Avanti file: IDTTYP (16152)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpBlock4Registration">
+            <summary>Id of object type "ICCP Block 4 Registration". DB table: IDTREG, Avanti file: IDTREG (16153)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpCompany">
+            <summary>Id of object type "ICCP Company". DB table: IDCMPY, Avanti file: IDCMPY (16149)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpControlPoint">
+            <summary>Id of object type "ICCP Control Point". DB table: IDCPNT, Avanti file: IDCPNT (16148)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpDataSet">
+            <summary>Id of object type "ICCP Data Set". DB table: IDDSET, Avanti file: IDDSET (16145)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpDataSetDataValueReference">
+            <summary>Id of object type "ICCP Data Set Data Value Reference". DB table: IDDREF, Avanti file: IDDREF (16146)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpDataValue">
+            <summary>Id of object type "ICCP Data Value". DB table: IDDVAL, Avanti file: IDDVAL (16144)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpInitialTransaction">
+            <summary>Id of object type "ICCP Initial Transaction". DB table: IDINTR, Avanti file: IDINTR (16143)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpLocalSystem">
+            <summary>Id of object type "ICCP Local System". DB table: IDSYSI, Avanti file: IDSYSI (16140)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpOpcUaAssociation">
+            <summary>Id of object type "ICCP OPC UA Association". DB table: ICCP_ASSOCIATION, Avanti file: ICCP_ASSOCIATION (55401)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpOpcUaBilateralTable">
+            <summary>Id of object type "ICCP OPC UA Bilateral Table". DB table: ICCP_BILATERAL_TABLE, Avanti file: ICCP_BILATERAL_TABLE (55400)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpOpcUaCommunicationLink">
+            <summary>Id of object type "ICCP OPC UA Communication Link". DB table: ICCP_COM_LINK, Avanti file: ICCP_COM_LINK (55404)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpOpcUaDataSet">
+            <summary>Id of object type "ICCP OPC UA Data set". DB table: ICCP_DATA_SET, Avanti file: ICCP_DATA_SET (55406)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpOpcUaDataValue">
+            <summary>Id of object type "ICCP OPC UA Data value". DB table: ICCP_DATA_VALUE, Avanti file: ICCP_DATA_VALUE (55405)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpOpcUaDeviceControl">
+            <summary>Id of object type "ICCP OPC UA Device Control". DB table: ICCP_DEVICE_CONTROL, Avanti file: ICCP_DEVICE_CONTROL (55407)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpOpcUaFrontEnd">
+            <summary>Id of object type "ICCP OPC UA Front end". DB table: ICCP_FRONT_END, Avanti file: ICCP_FRONT_END (55403)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpOpcUaMasterFrontEnd">
+            <summary>Id of object type "ICCP OPC UA Master Front end". DB table: ICCP_MASTER_FE, Avanti file: ICCP_MASTER_FE (55402)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IccpTransferAccount">
+            <summary>Id of object type "ICCP Transfer Account". DB table: IDACCT, Avanti file: IDACCT (16147)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Ied">
+            <summary>Id of object type "IED".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ImpedanceRelay">
+            <summary>Id of object type "Impedance Relay". DB table: IMPEDANCE_RELAY, Avanti file: IMPEDANCE RELAY (55550)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ImportantCustomer">
+            <summary>Id of object type "Important Customer ". DB table: IMPORTANT_CUSTOMER, Avanti file: IMPORTANT CUSTOMER (40128)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Indication">
+            <summary>Id of object type "Indication". DB table: INDICATION, Avanti file: INDICATION (14)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IndicationAlarmGroup">
+            <summary>Id of object type "Indication Alarm Group". DB table: ALARM_GROUP_IND, Avanti file: ALARM GROUP IND (157)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IndicationDelayGroup">
+            <summary>Id of object type "Indication Delay Group". DB table: DELAY_GROUP_IND, Avanti file: DELAY GROUP IND (160)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IndicationFunctionStartup">
+            <summary>Id of object type "Indication Function Startup". DB table: INDICATION_FS</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IndicationRedundantDataValues">
+            <summary>Id of object type "Indication Redundant Data Values". DB table: RED_DATA_VALUES_IND, Avanti file: RED DATA VALUES IND (55392)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.IndicationSapGroup">
+            <summary>Id of object type "Indication SAP Group". DB table: SAP_GROUPS_IND, Avanti file: SAP GROUPS IND (40135)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.InputOutputPowerCurve">
+            <summary>Id of object type "Input Output Power Curve". DB table: IO_CURVE, Avanti file: I O CURVE (521)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.InverseTimeCurve">
+            <summary>Id of object type "Inverse Time Curve". DB table: IDMT_CURVE, Avanti file: IDMT CURVE (55548)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.InverseTimeCurveData">
+            <summary>Id of object type "Inverse Time Curve Data". DB table: IDMT_CURVE_DATA, Avanti file: IDMTCURVE_DATA (55546)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Isolator">
+            <summary>Id of object type "Isolator".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ItsAgency">
+            <summary>Id of object type "ITS Agency". DB table: ITS_AGENCY, Avanti file: ITS AGENCY (1436)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ItsTielineCorridor">
+            <summary>Id of object type "ITS Tieline Corridor". DB table: ITS_TIELINE_CORRIDOR, Avanti file: ITS TIELINE CORRIDOR (1442)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LanguageAspect">
+            <summary>Id of object type "Language Aspect". DB table: NAME_ASPECT, Avanti file: ASPECT (40827)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LanguageAspectCategory">
+            <summary>Id of object type "Language Aspect Category". DB table: ASPECT_CATEGORY, Avanti file: ASPECT_CATEGORY (40826)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LimitControl">
+            <summary>Id of object type "Limit Control". DB table: LIMIT_CONTROL, Avanti file: LIMIT CONTROL (37114)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LimitManagerLimitSet">
+            <summary>Id of object type "Limit Manager Limit Set". DB table: LIMIT_TYPE_SET</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LimitManagerLimitValues">
+            <summary>Id of object type "Limit Manager Limit Values". DB table: LIMIT_VALUE_SET</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LimitManagerPointAssignment">
+            <summary>Id of object type "Limit Manager Point Assignment". DB table: LIMIT_SETS, Avanti file: LIMIT SETS (527)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LimitManagerType">
+            <summary>Id of object type "Limit Manager Type". DB table: LIMIT_TYPES, Avanti file: LIMIT TYPES (528)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LimitManagerValueSet">
+            <summary>Id of object type "Limit Manager Value Set".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LimitManagerValueSetGroup">
+            <summary>Id of object type "Limit Manager Value Set Group".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LimitScale">
+            <summary>Id of object type "Limit Scale". DB table: LIMIT_SCALE, Avanti file: LIMIT SCALE (529)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LimitValues">
+            <summary>Id of object type "Limit Values". DB table: LIMIT_VALUES, Avanti file: LIMIT VALUES (446)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LineContainer">
+            <summary>Id of object type "Line Container".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LineEnd">
+            <summary>Id of object type "Line End".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LineType">
+            <summary>Id of object type "Line Type". DB table: LINE_TYPE</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LineUnit">
+            <summary>Id of object type "Line Unit". DB table: LINE_UNIT, Avanti file: LINEUNIT (551)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Load">
+            <summary>Id of object type "Load". DB table: LOAD, Avanti file: LOAD (413)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LoadAssignment">
+            <summary>Id of object type "Load Assignment ". DB table: LOAD_ASSIGNMENT, Avanti file: LOAD ASSIGNMENT (961)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LoadGroup">
+            <summary>Id of object type "Load Group". DB table: LOAD_GROUP, Avanti file: LOAD_GROUP (616)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LoadShedInfo">
+            <summary>Id of object type "Load Shed Info". DB table: SHD_INFO, Avanti file: SHD INFO (40885)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LoadShedList">
+            <summary>Id of object type "Load Shed List". DB table: SHD_LIST, Avanti file: SHD LIST (40661)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.LossArea">
+            <summary>Id of object type "Loss Area". DB table: LOSS_AREA, Avanti file: LOSS_AREA (54326)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Mapboard">
+            <summary>Id of object type "Mapboard". DB table: MAPBOARD, Avanti file: MAPBOARD (73)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MapboardLamp">
+            <summary>Id of object type "Mapboard Lamp". DB table: MBD_LAMP, Avanti file: MBD LAMP (75)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MapboardNumeric">
+            <summary>Id of object type "Mapboard Numeric". DB table: MBD_NUMERIC, Avanti file: MBD NUMERIC (84)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Measurand">
+            <summary>Id of object type "Measurand". DB table: MEASURAND, Avanti file: MEASURAND (10)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MeasurandAlarmGroup">
+            <summary>Id of object type "Measurand Alarm Group". DB table: ALARM_GROUP_MEAS, Avanti file: ALARM GROUP MEAS (159)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MeasurandDelayGroup">
+            <summary>Id of object type "Measurand Delay Group". DB table: DELAY_GROUP_MEAS, Avanti file: DELAY GROUP MEAS (256)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MeasurandFunctionStartup">
+            <summary>Id of object type "Measurand Function Startup". DB table: MEASURAND_FS</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MeasurandRedundantDataValues">
+            <summary>Id of object type "Measurand Redundant Data Values". DB table: RED_DATA_VALUES_MEA, Avanti file: RED DATA VALUES MEA (55393)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MeasurandSapGroup">
+            <summary>Id of object type "Measurand SAP Group". DB table: SAP_GROUPS_MEAS, Avanti file: SAP GROUPS MEAS (40136)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MeasurementType">
+            <summary>Id of object type "Measurement Type".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Model">
+            <summary>Id of object type "Model". DB table: MODEL, Avanti file: MODEL (54334)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ModelAuthority">
+            <summary>Id of object type "Model Authority".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ModelAuthoritySet">
+            <summary>Id of object type "Model Authority Set". DB table: MODEL_AUTHORITY_SET, Avanti file: MODEL_AUTHORITY_SET (54526)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MultiHostRegion">
+            <summary>Id of object type "Multi Host Region". DB table: MULTIHOST_REGION, Avanti file: MH REGION (40752)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MultiHostSystem">
+            <summary>Id of object type "Multi Host System". DB table: MULTIHOST_SYSTEM, Avanti file: MHSYSTEM (588)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MultiUnackGroup">
+            <summary>Id of object type "Multi Unack Group". DB table: MULTI_UNACK_GROUP, Avanti file: MULTI UNACK GROUP (52)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.MvarRelay">
+            <summary>Id of object type "MVAR Relay". DB table: SHUNT_MVAR_RELAY, Avanti file: SHUNT_MVAR_RELAY (55549)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.NationalLanguageSupport">
+            <summary>Id of object type "National Language Support". DB table: NLS, Avanti file: NLS (40816)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.NetDistrict">
+            <summary>Id of object type "Net District". DB table: NET_DISTRICT, Avanti file: NET DISTRICT (243)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.NetworkParameter">
+            <summary>Id of object type "Network Parameter". DB table: NETWORK_PARAMETER, Avanti file: NETWORK_PARAMETER (40001)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.NlsText">
+            <summary>Id of object type "NLS Text". DB table: NLS_TEXT, Avanti file: NLS_TEXT (40817)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.NonElectricalObjects">
+            <summary>Id of object type "Non-Electrical Objects". DB table: NON_ELECTRICAL_OBJECTS, Avanti file: NON ELECTRICAL OBJECTS (40091)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OpcCalculation">
+            <summary>Id of object type "OPC Calculation". DB table: OPC_CALCULATION</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OpcConversion">
+            <summary>Id of object type "OPC Conversion". DB table: OPC_CONVERSION, Avanti file: OPC CONVERSION (54318)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OpcItem">
+            <summary>Id of object type "OPC Item". DB table: OPC_ITEM, Avanti file: OPC ITEM (54316)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OpcItemSettings">
+            <summary>Id of object type "OPC Item Settings". DB table: OPC_ITEM_SETTINGS, Avanti file: OPC ITEM SETTING (54317)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OpcMasterServer">
+            <summary>Id of object type "OPC Master Server". DB table: OPC_MASTER_SERVER, Avanti file: OPC MASTER SERVER (54313)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OpcServer">
+            <summary>Id of object type "OPC Server". DB table: OPC_SERVER, Avanti file: OPC SERVER (54314)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OpcSubscription">
+            <summary>Id of object type "OPC Subscription". DB table: OPC_SUBSCRIPTION, Avanti file: OPC SUBSCRIPTION (54315)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OperationalLimitType">
+            <summary>Id of object type "Operational Limit Type". DB table: OPERATIONAL_LIMIT_TYPE</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OperationalMode">
+            <summary>Id of object type "Operational Mode". DB table: AGC_OPERATIONAL_MODE, Avanti file: AGCOPERATIONALMODE (54291)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Organisation">
+            <summary>Id of object type "Organisation". DB table: ORGANISATION, Avanti file: ORGANISATION (54336)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsAgcData">
+            <summary>Id of object type "OTS AGC Data". DB table: OTSDE_AGC, Avanti file: OTSDE_AGC (28183)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsBasicData">
+            <summary>Id of object type "OTS Basic Data". DB table: OTSDE_DATA, Avanti file: OTSDE_DATA (28161)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsCbDynamicData">
+            <summary>Id of object type "OTS CB Dynamic Data". DB table: OTSDE_CBDYN, Avanti file: OTSDE_CBDYN (28186)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsControlSignal">
+            <summary>Id of object type "OTS Control Signal". DB table: DTS_CONTROL</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFactorSets">
+            <summary>Id of object type "OTS Factor Sets". DB table: OTSDE_FSETS</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFeederColdLoadPickup">
+            <summary>Id of object type "OTS Feeder Cold Load Pickup". DB table: OTSDE_FCLDSET, Avanti file: OTSDE_FCLDSET (28166)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFeederManagement">
+            <summary>Id of object type "OTS Feeder Management". DB table: OTSDE_FMGTSET, Avanti file: OTSDE_FMGTSET (28164)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFeederSensitivity">
+            <summary>Id of object type "OTS Feeder Sensitivity". DB table: OTSDE_FSENSET, Avanti file: OTSDE_FSENSET (28163)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFeederVoltageRegulation">
+            <summary>Id of object type "OTS Feeder Voltage Regulation". DB table: OTSDE_FREGSET, Avanti file: OTSDE_FREGSET (28165)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFossils">
+            <summary>Id of object type "OTS Fossils". DB table: OTSDE_FOSSILS</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFossils1">
+            <summary>Id of object type "OTS Fossils1". DB table: OTSDE_FOSSIL1, Avanti file: OTSDE_FOSSIL1 (28171)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFossils2">
+            <summary>Id of object type "OTS Fossils2". DB table: OTSDE_FOSSIL2, Avanti file: OTSDE_FOSSIL2 (28172)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFossils3">
+            <summary>Id of object type "OTS Fossils3". DB table: OTSDE_FOSSIL3, Avanti file: OTSDE_FOSSIL3 (28173)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFossils4">
+            <summary>Id of object type "OTS Fossils4". DB table: OTSDE_FOSSIL4, Avanti file: OTSDE_FOSSIL4 (28174)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFossils5">
+            <summary>Id of object type "OTS Fossils5". DB table: OTSDE_FOSSIL5, Avanti file: OTSDE_FOSSIL5 (28175)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsFossils6">
+            <summary>Id of object type "OTS Fossils6". DB table: OTSDE_FOSSIL6, Avanti file: OTSDE_FOSSIL6 (28176)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsHydroChain">
+            <summary>Id of object type "OTS Hydro Chain". DB table: OTSDE_HYDCHN, Avanti file: OTSDE_HYDCHN (28217)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsHydroPlant">
+            <summary>Id of object type "OTS Hydro Plant". DB table: OTSDE_HYDPLT, Avanti file: OTSDE_HYDPLT (28216)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsLoadFeeder">
+            <summary>Id of object type "OTS Load Feeder". DB table: OTSDE_FEEDER, Avanti file: OTSDE_FEEDER (28189)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsLtcDynamicData">
+            <summary>Id of object type "OTS LTC Dynamic Data". DB table: OTSDE_LTCDYN, Avanti file: OTSDE_LTCDYN (28192)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsNcLoadFeeder">
+            <summary>Id of object type "OTS NC Load Feeder". DB table: OTSDE_FEEDERNC, Avanti file: OTSDE_FEEDERNC (28190)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsParameterBoilingWaterReactor">
+            <summary>Id of object type "OTS Parameter boiling water reactor". DB table: OTSDE_BWR, Avanti file: OTSDE_BWR (28179)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsParameterCombustionTurbine">
+            <summary>Id of object type "OTS Parameter combustion turbine". DB table: OTSDE_COMB, Avanti file: OTSDE_COMB (28177)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsParameterHydro">
+            <summary>Id of object type "OTS Parameter hydro". DB table: OTSDE_HYDRO, Avanti file: OTSDE_HYDRO (28178)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsParameterNonLinearValveIo">
+            <summary>Id of object type "OTS Parameter non-linear valve IO". DB table: OTSDE_VALVEIO, Avanti file: OTSDE_VALVEIO (28182)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsParameterPressureWaterReactor">
+            <summary>Id of object type "OTS Parameter pressure water reactor". DB table: OTSDE_PWR, Avanti file: OTSDE_PWR (28180)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsParameterTurbine">
+            <summary>Id of object type "OTS Parameter turbine". DB table: OTSDE_TURBINE, Avanti file: OTSDE_TURBINE (28169)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsParameterValve">
+            <summary>Id of object type "OTS Parameter valve". DB table: OTSDE_VALVE, Avanti file: OTSDE_VALVE (28181)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsParameterWindGenerator">
+            <summary>Id of object type "OTS Parameter wind generator". DB table: OTSDE_WIND, Avanti file: OTSDE_WIND (28219)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsRelay">
+            <summary>Id of object type "OTS Relay". DB table: OTSDE_RELAY, Avanti file: OTSDE_RELAY (28194)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsRelayControlEquipments">
+            <summary>Id of object type "OTS Relay Control Equipments". DB table: OTSDE_RELAYCEQ, Avanti file: OTSDE_RELAYCEQ (28196)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsRelayParameters">
+            <summary>Id of object type "OTS Relay Parameters". DB table: OTSDE_RELAYPAR, Avanti file: OTSDE_RELAYPAR (28195)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsSeason">
+            <summary>Id of object type "OTS Season". DB table: OTSDE_SEASON, Avanti file: OTSDE_SEASON (28162)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsUnitDynamics">
+            <summary>Id of object type "OTS Unit Dynamics". DB table: OTSDE_UNITDYN, Avanti file: OTSDE_UNITDYN (28188)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsUnitModel">
+            <summary>Id of object type "OTS Unit Model". DB table: OTSDE_UMODEL</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsUnitModelType">
+            <summary>Id of object type "OTS Unit Model Type". DB table: OTSDE_UMODEL_LOOKUP_LOV</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsValveIo">
+            <summary>Id of object type "OTS Valve IO". DB table: OTSDE_VALVEIO, Avanti file: OTSDE_VALVEIO (28182)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsZoneCurve">
+            <summary>Id of object type "OTS Zone Curve". DB table: OTSDE_ZCURVES, Avanti file: OTSDE_ZCURVES (28167)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OtsZonePattern">
+            <summary>Id of object type "OTS Zone Pattern". DB table: OTSDE_ZONEPTRN, Avanti file: OTSDE_ZONEPTRN (28185)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OutputSupervision">
+            <summary>Id of object type "Output Supervision". DB table: OUTPUT_SUPERV, Avanti file: OUTPUT SUPERV. (25)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OvercurrentRelay">
+            <summary>Id of object type "Overcurrent Relay". DB table: OVERCURRENT_RELAY, Avanti file: OVERCURRENT RELAY (55547)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.OverloadMonitor">
+            <summary>Id of object type "Overload Monitor". DB table: OLM_POINT, Avanti file: OLM POINT (40830)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Participant">
+            <summary>Id of object type "Participant". DB table: Participant, Avanti file: PARTICIPANT (46420)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Pattern">
+            <summary>Id of object type "Pattern". DB table: PATTERN, Avanti file: PATTERN (432)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Pcu">
+            <summary>Id of object type "PCU". DB table: PROCCOMUNIT, Avanti file: PROCCOMUNIT (552)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PcuParameters">
+            <summary>Id of object type "PCU Parameters". DB table: PCU_PARAMETER, Avanti file: PCU PARAMETER (40974)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PiGenericStates">
+            <summary>Id of object type "PI Generic States". DB table: GENERIC_STATES</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PiGenericStatesDefinition">
+            <summary>Id of object type "PI Generic States Definition". DB table: GENERIC_STATES_DEF</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PiGroupExtension">
+            <summary>Id of object type "PI Group Extension". DB table: HIST_GROUP_EXT, Avanti file: HIST GROUP EXT (55385)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PiIdentity">
+            <summary>Id of object type "PI Identity". DB table: HIST_PI_IDENTITY</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PiIdentityGroup">
+            <summary>Id of object type "PI Identity Group". DB table: HIST_PI_IDENTITY_GROUP</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PiIdentityGroupXref">
+            <summary>Id of object type "PI Identity Group Xref". DB table: HIST_PI_IDENTITY_GRP_XREF</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PiPolicy">
+            <summary>Id of object type "PI Policy". DB table: HIST_POLICY</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PiPolicyByEngineeringUnit">
+            <summary>Id of object type "PI Policy by Engineering Unit". DB table: ENG_UNIT_POLICY</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PiSecurity">
+            <summary>Id of object type "PI Security". DB table: HIST_SECURITY</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PiServer">
+            <summary>Id of object type "PI Server". DB table: HIST_SERVER, Avanti file: HIST SERVER (55386)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PiServerGroup">
+            <summary>Id of object type "PI Server Group". DB table: HIST_SERVER_GROUP, Avanti file: HIST SERVER GROUP (55387)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PointClass">
+            <summary>Id of object type "Point Class". DB table: POINT_CLASS, Avanti file: POINT CLASS (144)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Pool">
+            <summary>Id of object type "Pool". DB table: POOL, Avanti file: POOL (601)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PowerSystemModelObjectType">
+            <summary>Id of object type "Power System Model Object Type". DB table: OBJ_TYPE, Avanti file: OBJ_TYPE (40611)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ProcessValue">
+            <summary>Id of object type "Process Value". DB table: PROCESS_VALUE, Avanti file: PROCESS VALUE (440)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ProcessValueType">
+            <summary>Id of object type "Process Value Type".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Product">
+            <summary>Id of object type "Product". DB table: PRODUCT_EXT, Avanti file: PRODUCT (54335)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Profiles">
+            <summary>Id of object type "Profiles". DB table: PROFILES, Avanti file: PROFILES (613)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PulseLength">
+            <summary>Id of object type "Pulse Length". DB table: PULSE_LENGTH, Avanti file: PULSE LENGTH (40865)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.PulseLengthValues">
+            <summary>Id of object type "Pulse Length Values". DB table: PULSE_LENGTH_VALUES</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.QualityCode">
+            <summary>Id of object type "Quality Code". DB table: HIS_QUALITY_CODE, Avanti file: QUALITY CODE (505)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ReactiveAreaEquipment">
+            <summary>Id of object type "Reactive Area Equipment". DB table: REACTIVE_AREA_EQUIPMENT, Avanti file: REACTIVE_AREA_EQUIPMENT (40904)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ReactiveReserveArea">
+            <summary>Id of object type "Reactive Reserve Area". DB table: REACTIVE_RESERVE_AREA, Avanti file: REACTIVE_RESERVE_AREA (40903)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.RegulatingControl">
+            <summary>Id of object type "Regulating Control". DB table: REGULATINGCONTROL, Avanti file: REGULATINGCONTROL (40994)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Role">
+            <summary>Id of object type "Role". DB table: ROLE, Avanti file: ROLE (54337)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Rtu">
+            <summary>Id of object type "RTU". DB table: RTU, Avanti file: RTU (26)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.RtuObjectsTemplate">
+            <summary>Id of object type "RTU objects template". DB table: RTU_OBJECTS_TEMPLATE, Avanti file: RTU OBJECTS TEMPLATE (40879)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.RtuObjectsTranslation">
+            <summary>Id of object type "RTU Objects Translation". DB table: RTU_OBJECTS_TRANS, Avanti file: RTU OBJECTS TRANS (40880)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.RtuProtocol">
+            <summary>Id of object type "RTU Protocol". DB table: RTU_PROTOCOL_LOV</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.RtuType">
+            <summary>Id of object type "RTU Type". DB table: RTU_TYPE</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ScadaObject">
+            <summary>Id of object type "SCADA Object".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ScadaPowerCalculation">
+            <summary>Id of object type "SCADA Power Calculation". DB table: CALC_S_I_COS_FI, Avanti file: CALC S I COSFI (24)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ScadaPowerControl">
+            <summary>Id of object type "SCADA Power Control". DB table: CALC_SIC_CONTR, Avanti file: CALC SIC CONTR (23)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ScanGroup">
+            <summary>Id of object type "Scan Group". DB table: SCANGROUP, Avanti file: SCANGROUP (314)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Season">
+            <summary>Id of object type "Season". DB table: SEASON, Avanti file: SEASON (40711)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SeriesCompensator">
+            <summary>Id of object type "Series Compensator". DB table: SERIES_COMPENSATOR, Avanti file: SERIES_COMPENSATOR (976)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ServiceInformationSystemType">
+            <summary>Id of object type "Service Information System Type". DB table: SIS_TYPE, Avanti file: SIS TYPE (40089)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SetPoint">
+            <summary>Id of object type "Set Point". DB table: SET_POINT_VALUE, Avanti file: SET POINT VALUE (16)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ShedLoad">
+            <summary>Id of object type "Shed Load". DB table: SHD_LOAD, Avanti file: SHD LOAD (40662)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ShortCircuitLineGroup">
+            <summary>Id of object type "Short Circuit Line Group". DB table: SC_LINE_GROUP, Avanti file: SC_LINE_GROUP (9215)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ShuntCompensator">
+            <summary>Id of object type "Shunt Compensator". DB table: SHUNT_COMPENSATOR, Avanti file: SHUNT_COMPENSATOR (615)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ShuntCompensatorSection">
+            <summary>Id of object type "Shunt Compensator Section". DB table: SHUNT_COMPENSATOR_SECT, Avanti file: SHUNT_COMPENSATOR_SECT (54273)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SigmaByMeasurementClass">
+            <summary>Id of object type "Sigma by Measurement Class". DB table: SIGMA_MEAS_CLASS, Avanti file: SIGMA_MEAS_CLASS (40877)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Source">
+            <summary>Id of object type "Source". DB table: SOURCE, Avanti file: SOURCE (987)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SplElement">
+            <summary>Id of object type "SPL Element". DB table: ISC_ELEMENT, Avanti file: ISC ELEMENT (121)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SplEventStateDescription">
+            <summary>Id of object type "SPL Event State Description". DB table: ISC_EVENT_STATE_DESCR, Avanti file: ISC_EVENT_STATE_DESCR (77)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SplGroupType">
+            <summary>Id of object type "SPL Group Type". DB table: ISC_POINT_GROUP_TYPE, Avanti file: ISC POINT GROUP TYPE (40115)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SplPointDescription">
+            <summary>Id of object type "SPL Point Description". DB table: ISC_ELEMENT_DESCR, Avanti file: ISC_ELEMENT_DESCR (76)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SplPointGroup">
+            <summary>Id of object type "SPL Point Group". DB table: ISC_POINT_GROUP, Avanti file: ISC POINT GROUP (119)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SplProgramReference">
+            <summary>Id of object type "SCADA Object".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SplStructuredElement">
+            <summary>Id of object type "SPL Structured Element".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SplStructuredPointGroup">
+            <summary>Id of object type "SPL Structured Point Group".</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SplitModeSide">
+            <summary>Id of object type "Split Mode Side". DB table: SPLIT_MODE_SIDE, Avanti file: SPLIT MODE SIDE (510)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.StGtCurve">
+            <summary>Id of object type "ST/GT Curve". DB table: ST_GT_CURVE, Avanti file: ST_GT_CURVE (40165)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.StaleMonitorGroup">
+            <summary>Id of object type "Stale Monitor Group". DB table: STALE_MONITOR_GROUP, Avanti file: STALE_MONITOR_GROUP (54343)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.State">
+            <summary>Id of object type "State". DB table: STATE, Avanti file: STATE (40116)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Station">
+            <summary>Id of object type "Station". DB table: STATION, Avanti file: STATION (20)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.StationToRtuLinkage">
+            <summary>Id of object type "Station to RTU Linkage". DB table: STATION_RTU</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Subnet">
+            <summary>Id of object type "Subnet". DB table: SUBNET, Avanti file: SUBNET (429)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Substation">
+            <summary>Id of object type "Substation". DB table: SUBSTATION</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Switch">
+            <summary>Id of object type "Switch". DB table: SWITCH, Avanti file: SWITCH (435)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.SynchronousCondenser">
+            <summary>Id of object type "Synchronous Condenser". DB table: SYNC_COND, Avanti file: SYNC_COND (614)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TapChanger">
+            <summary>Id of object type "Tap Changer". DB table: TAP_CHANGER, Avanti file: TAP_CHANGER (610)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TapChangerType">
+            <summary>Id of object type "Tap Changer Type". DB table: TCH_TYPE, Avanti file: TCH_TYPE (611)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TapChangerTypeParameter">
+            <summary>Id of object type "Tap Changer Type Parameter". DB table: TCH_PARAMETER, Avanti file: TCH_PARAMETER (598)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TextCrossReference">
+            <summary>Id of object type "Text Cross-reference". DB table: TEXT_XREF, Avanti file: TEXT_XREF (40828)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TextType">
+            <summary>Id of object type "Text Type". DB table: TEXT_TYPE, Avanti file: TEXT_TYPE (40862)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ThermalUnit">
+            <summary>Id of object type "Thermal Unit". DB table: THERMAL_UNIT, Avanti file: THERMAL UNIT (556)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ThreeWindingTransformer">
+            <summary>Id of object type "Three Winding Transformer". DB table: TRAN_3W, Avanti file: TRAN_3W (608)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.ThreeWindingTransformerType">
+            <summary>Id of object type "Three Winding Transformer Type". DB table: TR3_TYPE, Avanti file: TR3_TYPE (609)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TieLine">
+            <summary>Id of object type "Tie Line". DB table: TIELINE, Avanti file: TIELINE (303)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TimeCurve">
+            <summary>Id of object type "Time Curve". DB table: TIME_CURVE, Avanti file: TIME_CURVE (40713)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TimeCurveType">
+            <summary>Id of object type "Time Curve Type". DB table: TIME_CURVE_TYPE, Avanti file: TIME_CURVE_TYPE (40715)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TimeCurveValue">
+            <summary>Id of object type "Time Curve Value". DB table: TIME_CURVE_VALUE, Avanti file: TIME_CURVE_VALUE (40714)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Track">
+            <summary>Id of object type "Track". DB table: TRACK, Avanti file: TRACK (242)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Transaction">
+            <summary>Id of object type "Transaction". DB table: TRANSACTION, Avanti file: TRANSACTION (55397)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Transducer">
+            <summary>Id of object type "Transducer". DB table: TRANSDUCER_DEF, Avanti file: TRANSDUCER DEF (151)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TransmissionLine">
+            <summary>Id of object type "Transmission Line". DB table: LINE, Avanti file: LINE (604)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Turbine">
+            <summary>Id of object type "Turbine". DB table: Turbine, Avanti file: TURBINE (554)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TwoWindingTransformer">
+            <summary>Id of object type "Two Winding Transformer". DB table: TRAN_2W, Avanti file: TRAN_2W (606)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.TwoWindingTransformerType">
+            <summary>Id of object type "Two Winding Transformer Type". DB table: TR2_TYPE, Avanti file: TR2_TYPE (607)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.UnitForbiddenRegion">
+            <summary>Id of object type "Unit Forbidden Region". DB table: UNIT_FORBIDDEN_REGION, Avanti file: UNITFORBIDDENREGION (40696)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Version">
+            <summary>Id of object type "Version". DB table: VERSION, Avanti file: VERSION (54333)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.VoltageController">
+            <summary>Id of object type "Voltage Controller". DB table: VOLTAGE_CONTROLLER</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.VoltageReductionDevice">
+            <summary>Id of object type "Voltage Reduction Device". DB table: VRD_DEVICE, Avanti file: VRD DEVICE (40882)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.VoltageReductionInfo">
+            <summary>Id of object type "Voltage Reduction Info". DB table: VRD_INFO, Avanti file: VRD INFO (40884)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.VoltageReductionList">
+            <summary>Id of object type "Voltage Reduction List". DB table: VRD_LIST, Avanti file: VRD LIST (40881)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.VoltageVarControl">
+            <summary>Id of object type "Voltage Var Control". DB table: VVC_CONTROL, Avanti file: VVC_CONTROL (46410)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.WindPark">
+            <summary>Id of object type "Wind Park". DB table: WIND_PARK, Avanti file: WIND_PARK (222)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.WindTurbine">
+            <summary>Id of object type "Wind Turbine". DB table: WIND_TURBINE, Avanti file: WIND_TURBINE (221)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Xfr">
+            <summary>Id of object type "XFR". DB table: XFR, Avanti file: XFR (40727)</summary>
+        </member>
+        <member name="F:Nmx.Public.DE.ObjectTypes.Zone">
+            <summary>Id of object type "Zone". DB table: ZONE, Avanti file: ZONE (603)</summary>
+        </member>
+        <member name="T:Nmx.Public.DE.PropertyHandle">
+            <summary>
+            Opaque structure that represents a property on a particular object type
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.PropertyHandle.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new property handle
+            </summary>
+            <param name="typeName">Object type the property targets</param>
+            <param name="propertyName">Name of the property</param>
+        </member>
+        <member name="M:Nmx.Public.DE.PropertyHandle.Equals(Nmx.Public.DE.PropertyHandle)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.DE.PropertyHandle.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.DE.PropertyHandle.GetHashCodeImpl">
+            <summary>
+            Must return a hash code that follows the equality rules of the <see cref="M:Nmx.Public.DE.PropertyHandle.Equals(Nmx.Public.DE.PropertyHandle)"/> method.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.PropertyHandle.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.DE.PropertyHandle.op_Equality(Nmx.Public.DE.PropertyHandle,Nmx.Public.DE.PropertyHandle)">
+            <summary>
+            Compare two instances for equality
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.PropertyHandle.op_Inequality(Nmx.Public.DE.PropertyHandle,Nmx.Public.DE.PropertyHandle)">
+            <summary>
+            Compare two instances for inequality
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.DE.Workspace">
+            <summary>
+            Represents the concept of a workspace, which contains modifications (+ baseline data) that will be deployed.
+            This class allows you to access all objects in the workspace as well as the modifications performed.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.Workspace.Instance">
+            <summary>
+            Returns the current workspace used.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.Workspace.ObjectTypes">
+            <summary>
+            All defined types.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.NetworkManagerRDFID(System.Guid)">
+            <summary>
+            Create an RDFID from a GUID.
+            </summary>
+            <param name="id">Guid to use.</param>
+            <returns>RDFID.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.GetModifications">
+            <summary>
+            Gets all objects that are modified in the current workspace
+            </summary>
+            <returns>The list of modifications in the current workspace. Each item in the returned list corresponds to an object</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.GetModifications(System.String,System.Boolean)">
+            <summary>
+            Gets all objects of the specified type (optionally also including derived types) that are modified in the current workspace
+            </summary>
+            <param name="objectType">The name or id of the type of objects to get. See <see cref="P:Nmx.Public.DE.Workspace.ObjectTypes"/> for list of known object types.</param>
+            <param name="includeDerived">Set to true to also include objects that are subtypes of the specified type</param>
+            <returns>The list of modifications in the current workspace. Each item in the returned list corresponds to an object</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.GetObjects(System.String,System.Boolean)">
+            <summary>
+            Gets all objects of the specified type (optionally also including derived types)
+            </summary>
+            <param name="objectType">The name or id of the objects to get. See <see cref="P:Nmx.Public.DE.Workspace.ObjectTypes"/> for list of known object types.</param>
+            <param name="includeDerived">Set to true to also include objects that are subtypes of the specified type</param>
+            <returns>The list of objects in the current workspace of the specified type.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.GetObject(System.String,System.String,System.Boolean)">
+            <summary>
+            Gets the object of the specified type that has the specified name. If more than one object has that name,
+            the first match is returned. The name is case insensitive, that is, upper and lower case characters are treated
+            as the same character.
+            </summary>
+            <param name="objectType">The name or id of the objects to get. See <see cref="P:Nmx.Public.DE.Workspace.ObjectTypes"/> for list of known object types.</param>
+            <param name="name">Name of the object.</param>
+            <param name="includeDerived">Set to true to also include objects that are subtypes of the specified type.</param>
+            <returns>The object with the specified name of the specified type, or <c>null</c> if no such object could be found.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.FindObjectsWithPropertyValue(System.String,System.String,System.Func{System.Object,System.Boolean},System.Func{Nmx.Public.DE.WorkspaceObject,System.Boolean})">
+            <summary>
+            Find all objects of a certain class with a property value.
+            </summary>
+            <param name="objectType">The type to use (null to examine all types).</param>
+            <param name="propertyName">Property to get value for.</param>
+            <param name="predicateFn1">Predicate function which gets passed the property value.</param>
+            <param name="predicateFn2">Predicate function which gets passed the object.</param>
+            <returns>List of objects meeting the predicates.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.FindObjectsWithPropertyValue(System.String,System.String,System.Func{System.String,System.Object,System.Boolean},System.Func{Nmx.Public.DE.WorkspaceObject,System.Boolean})">
+            <summary>
+            Find all objects of a certain class with a property value.
+            </summary>
+            <param name="objectType">The type to use (null to examine all types).</param>
+            <param name="propertyType">Properties to get value for.
+            Supported types: RDFID, Reference.</param>
+            <param name="predicateFn1">Predicate function which gets passed the property value.</param>
+            <param name="predicateFn2">Predicate function which gets passed the object.</param>
+            <returns>List of objects meeting the predicates.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.FindObjects(System.String,System.String)">
+            <summary>
+            Finds objects based on name. The name belongs to a namescope. Common namescopes are
+            "Names" (for identification texts), "ExternalIdentity" or the object type name for
+            some object types.
+            </summary>
+            <param name="namescope">Namescope to use (null is interpreted as "Names").</param>
+            <param name="name">The name to find.</param>
+            <returns>A list of zero or more object matching the name.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.FindObject(System.String)">
+            <summary>
+            Returns an object matching the specified name in the "Names" namescope.
+            If more than one object matches the name then null is returned.
+            </summary>
+            <param name="name">Name to look for.</param>
+            <returns>Workspace object or null.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.FindObject(System.Guid)">
+            <summary>
+            Returns an object for the given id.
+            </summary>
+            <param name="id">id of the workspace object.</param>
+            <returns>Workspace object or null.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.MatchObjects(System.String,System.String,System.Int32)">
+            <summary>
+            This method find all objects that matches a namescope and name pattern. The patterns
+            used are wildcard patterns using the '*' and '?' match characters,
+            </summary>
+            <param name="namescopePattern">Namescope pattern. A null namescope pattern will
+            used the "Names" namescope. A Pattern of "*" will search all namescopes (expensive).</param>
+            <param name="namePattern">Name pattern.</param>
+            <param name="maxCount">Max number of objects returned.</param>
+            <returns>A list of objects matching the namescope and name patterns.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.CreateObject(System.String)">
+            <summary>
+            Creates a new object of the specified type. An exception will be thrown
+            if the object cannot be created.
+            </summary>
+            <param name="objectType">The name or id of the object to be created. See <see cref="P:Nmx.Public.DE.Workspace.ObjectTypes"/> for list of known object types.</param>
+            <returns>The newly created object.</returns>
+            <exception cref="T:Nmx.Public.NmxException">The object could not be created, for example because of an unknown object type or if the workspace is readonly</exception>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.CreateObject(System.String,System.String)">
+            <summary>
+            Creates a new object of the specified type and assigns it the specified name. An exception will be thrown
+            if the object cannot be created.
+            </summary>
+            <param name="objectType">The name or id of the object to be created. See <see cref="P:Nmx.Public.DE.Workspace.ObjectTypes"/> for list of known object types.</param>
+            <param name="name">The name to assign to the newly created object.</param>
+            <returns>The newly created object.</returns>
+            <exception cref="T:Nmx.Public.NmxException">The object could not be created, for example because of an unknown object type or if the workspace is readonly</exception>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.DeleteObject(Nmx.Public.DE.WorkspaceObject)">
+            <summary>
+            Deletes an object. An exception will be thrown
+            if the object cannot be deleted.
+            </summary>
+            <param name="wsObject">The object to be deleted.</param>
+            <exception cref="T:Nmx.Public.NmxException">The object could not be deleted, for example because the workspace is readonly.</exception>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.GetConnectionManager(Nmx.Public.DE.WorkspaceObject)">
+            <summary>
+            Returns a connection manager for a station. A new connection manager is
+            created with every call.
+            </summary>
+            <param name="stationObject">Station for the connection manager.</param>
+            <returns>Connection manager object.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.GetAvantiFileName(System.Object)">
+            <summary>
+            Returns the avanti file name for an object type.
+            </summary>
+            <param name="typeSpec">The name of the type or an object reference.</param>
+            <returns>The avanti file name for the type.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.GetAvantiFileNumber(System.Object)">
+            <summary>
+            Returns the avanti file number for an object type.
+            </summary>
+            <param name="typeSpec">The name of the type or an object reference.</param>
+            <returns>The avanti file name for the type.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.GetTypeName(System.Object)">
+            <summary>
+            Returns the type name for the object, Avanti file name or avanti file number .
+            </summary>
+            <param name="typeSpec">The name, number or object.</param>
+            <returns>Type name.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.ExportCimXml(System.String,System.String,System.String)">
+            <summary>
+            Exports a set of CIM XML files from the workspace to the specified
+            directory, using the specified preset.
+            </summary>
+            <param name="presetName">The name of the preset defining the profiles
+            and options to be used during the export.</param>
+            <param name="outputDirectory">The directory into which the files
+            shall be created. The file names are controlled by the preset.</param>
+            <param name="modelAuthoritySetUri">The URI of the ModelAuthoritySet to be exported. Use null or an empty string to export the full assembled network.</param>
+            <returns>The full path of the XML file that was created, or null if the file was not created.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.Workspace.ExportCimXml(System.String,System.String,Nmx.Public.DE.WorkspaceObject)">
+            <summary>
+            Exports a set of CIM XML files from the workspace to the specified
+            directory, using the specified preset.
+            </summary>
+            <param name="presetName">The name of the preset defining the profiles
+            and options to be used during the export.</param>
+            <param name="outputDirectory">The directory into which the files
+            shall be created. The file names are controlled by the preset.</param>
+            <param name="modelAuthoritySet">The URI of the ModelAuthoritySet to be exported. Use null or an empty string to export the full assembled network.</param>
+            <returns>The full path of the XML file that was created, or null if the file was not created.</returns>
+        </member>
+        <member name="T:Nmx.Public.DE.WorkspaceObject">
+            <summary>
+            Represents an object inside a workspace.  
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.WorkspaceObject.TypeName">
+            <summary>
+            The name of the object type that this object is an instance of. 
+            </summary>
+            <seealso cref="T:Nmx.Public.DE.ObjectTypes"/>
+        </member>
+        <member name="P:Nmx.Public.DE.WorkspaceObject.TypeId">
+            <summary>
+            The type of object that this object is an instance of.
+            </summary>
+            <seealso cref="T:Nmx.Public.DE.ObjectTypes" />        
+        </member>
+        <member name="P:Nmx.Public.DE.WorkspaceObject.Name">
+            <summary>
+            The name of the object.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.WorkspaceObject.Id">
+            <summary>
+            The Unique ID of the object.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.WorkspaceObject.Workspace">
+            <summary>
+            Returns the workspace the object lives in.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.PropertiesOfType(System.String)">
+            <summary>
+            Gets the properties of the specified "type". 
+            Supported types: RDFID, Reference.
+            </summary>
+            <param name="propertyType">RDFID or Reference.</param>
+            <returns>List of properties of the type.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.HasProperty(System.String)">
+            <summary>
+            Returns true if the object has a property with the specified name.
+            </summary>
+            <param name="propertyName">Name of the property to look for.</param>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.IsOfType(System.String)">
+            <summary>
+            Returns true if this object is of the specified type. This includes any derived type as well.
+            </summary>
+            <param name="objectType">The id or name of the type to check. See <see cref="T:Nmx.Public.DE.ObjectTypes"/> for list of known object types.</param>
+            <seealso cref="T:Nmx.Public.DE.ObjectTypes" />
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.IsOfType(System.String,System.Boolean)">
+            <summary>
+            Returns true if this object is of the specified type, optionally including derived types as well.
+            </summary>
+            <param name="objectType">The id or name of the type to check. See <see cref="T:Nmx.Public.DE.ObjectTypes"/> for list of known object types.</param>
+            <param name="includeDerived">If false, then it will only check if the object is of the specified type and not any derived type.</param>
+            <seealso cref="T:Nmx.Public.DE.ObjectTypes" />        
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetPropertyHandle(System.String)">
+            <summary>
+            Given the property name, returns the property handle.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <returns>A property handle that can be used for more efficient property access.
+            A null value is returned if the property does not exist.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetValue``1(System.String)">
+            <summary>
+            Gets the value of the specified property.
+            </summary>
+            <typeparam name="T">The type of value to be returned.</typeparam>
+            <param name="propertyName">Name of the property to get.</param>
+            <returns>The value in the specified type. If a type conversion fails then
+            the default value for the type is returned.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetValue``1(Nmx.Public.DE.PropertyHandle)">
+            <summary>
+            Gets the value of the specified property.
+            </summary>
+            <typeparam name="T">The type of value to be returned.</typeparam>
+            <param name="propertyHandle">The property to get.</param>
+            <returns>The value in the specified type. If a type conversion fails then
+            the default value for the type is returned.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.SetValue(System.String,System.Object)">
+            <summary>
+            Sets the specified property on this object to the specified value. If the property
+            cannot be set in the environment where the method is called then an NmxException exception 
+            is generated.
+            </summary>
+            <param name="propertyName">Name of the property to set.</param>
+            <param name="value">Value to set.</param>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.SetValue(Nmx.Public.DE.PropertyHandle,System.Object)">
+            <summary>
+            Sets the specified property on this object to the specified value. If the property
+            cannot be set in the environment where the method is called then an NmxException exception 
+            </summary>
+            <param name="propertyHandle">Property to set.</param>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetReference(System.String)">
+            <summary>
+            Get the object referenced by the specified property. 
+            </summary>
+            <param name="propertyName">Name of the property. This should typically be a <c>"_REF"</c> property of type ObjectId.</param>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetReference(Nmx.Public.DE.PropertyHandle)">
+            <summary>
+            Get the object referenced by the specified property. 
+            </summary>
+            <param name="propertyHandle">Property to get. This should typically be a <c>"_REF"</c> property of type ObjectId.</param>
+        </member>
+        <member name="P:Nmx.Public.DE.WorkspaceObject.Connections">
+            <summary>
+            List of connections from this object. The number of items in the list depends 
+            on the object type, and will be one for each side.
+            </summary>
+            <seealso cref="T:Nmx.Public.DE.INetworkWalker" />
+            <seealso cref="T:Nmx.Public.DE.ConnectionPoint" />
+        </member>
+        <member name="P:Nmx.Public.DE.WorkspaceObject.Station">
+            <summary>
+            Gets the station that this object belongs to, or <c>null</c> if no station is assigned.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.DE.WorkspaceObject.RTU">
+            <summary>
+            Gets the RTU that this object is assigned to, or <c>null</c> if no RTU is assigned.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetContainedObjects">
+            <summary>
+            Returns a list of all the objects that are contained under/in this object. 
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetContainedObjects(System.String,System.Boolean)">
+            <summary>
+            Returns a list of all the objects (of the specified type) that are contained under/in this object. 
+            </summary>
+            <param name="objectType">The type of objects to return. See <see cref="T:Nmx.Public.DE.ObjectTypes"/> for list of known object types.</param>
+            <param name="includeDerived">Set to true to also include all objects that are subtypes of the specified type.</param>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetContainedObjectByName(System.String,System.Boolean)">
+            <summary>
+            Return the contained object with the specified (short) name. The object is only
+            returned if only one object is found with the specified name.
+            </summary>
+            <param name="name">Name to match.</param>
+            <param name="useShortName">Uses short name or name.</param>
+            <returns>The unique workspace object with this name with the contained objects.</returns>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetInReferences">
+            <summary>
+            Gets a list of all the objects that references this object.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetInReferences(System.String,System.Boolean)">
+            <summary>
+            Gets a list of all the objects (of the specified type) that references this object
+            </summary>
+            <param name="objectType">The type of objects to return. See <see cref="T:Nmx.Public.DE.ObjectTypes"/> for list of known object types.</param>
+            <param name="includeDerived">Set to true to also include all objects that are subtypes 
+            of the specified type.</param>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetNetworkWalker">
+            <summary>
+            Creates a new network walker that originates from this object.
+            </summary>
+            <seealso cref="T:Nmx.Public.DE.INetworkWalker"/>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.Equals(Nmx.Public.DE.WorkspaceObject)">
+            <summary>
+            Checks if the the specified object represents the same object as this instance.
+            </summary>
+            <param name="other">The object to check.</param>
+            <returns>True if the object is the same as this. </returns>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.Equals(System.Object)">
+            <summary>
+            Checks if the the specified object represents the same object as this instance.
+            </summary>
+            <param name="obj">The object to check. This should be of type <see cref="T:Nmx.Public.DE.WorkspaceObject"/>.</param>
+            <returns>True if the object is the same as this. </returns>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.op_Equality(Nmx.Public.DE.WorkspaceObject,Nmx.Public.DE.WorkspaceObject)">
+            <summary>
+            Compare two instances for equality.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.DE.WorkspaceObject.op_Inequality(Nmx.Public.DE.WorkspaceObject,Nmx.Public.DE.WorkspaceObject)">
+            <summary>
+            Compare two instances for inequality.
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.NamespaceDoc">
+            <summary>
+            Classes and types that are shared across all parts of the NM Public API.
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.NamespaceGroupDoc">
+            <summary>
+            The Network Manager Public API contains classes and definitions that can be used by third parties
+            to extend the functionality of the product.
+            </summary>
+            <remarks>
+            <p>This document describes and simple to use API against the various parts of the network manager applications.
+            For the current version of NM, only the <see cref="N:Nmx.Public.DE">data engineering</see> subsystem is exposed in the public API
+            but this may be extended in the future as new needs are identified.</p>
+            <p>The API is going to be kept stable between releases.</p>
+            </remarks>
+        </member>
+        <member name="T:Nmx.Public.NmxException">
+            <summary>
+            Exception type for the public API.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.NmxException.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.NmxException.#ctor(System.String)">
+            <summary>
+            Creates a new exception with the specified message.
+            </summary>
+            <param name="message">Exception reason.</param>
+        </member>
+        <member name="M:Nmx.Public.NmxException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.NmxException.#ctor(Nmx.Public.NmxException.ExceptionCause)">
+            <summary>
+            Constructor to set the cause.
+            </summary>
+            <param name="cause">Cause of exception.</param>
+        </member>
+        <member name="P:Nmx.Public.NmxException.Reason">
+            <summary>
+            Exception message/reason.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.NmxException.Cause">
+            <summary>
+            Common causes of an exception. The cause may be unknown which means that the 
+            <see cref="P:System.Exception.Message"/> property contain the only available information.
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.NmxException.ExceptionCause">
+            <summary>
+            Common causes of an exception.
+            </summary>
+        </member>
+        <member name="F:Nmx.Public.NmxException.ExceptionCause.Unknown">
+            <summary>
+            No defined cause of this exception. Exception message provides the only indication of  
+            why the exception was raised.
+            </summary>
+        </member>
+        <member name="F:Nmx.Public.NmxException.ExceptionCause.TypeNotFound">
+            <summary>
+            The specified type does not exist.
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Properties.Resources.ObjectTypeCouldNotBeFound">
+            <summary>
+              Looks up a localized string similar to The object type could not be found..
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Properties.Resources.UnknownReason">
+            <summary>
+              Looks up a localized string similar to Unknown reason..
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Properties.Resources.UnknownReasonWithErrorCode">
+            <summary>
+              Looks up a localized string similar to Unknown reason. (code = {0}).
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.Result">
+            <summary>
+            Represents the result of an operation (i.e. success/failure). A failure can have different severity levels as described by the <see cref="T:Nmx.Public.Result.ResultFailureSeverity"/> enumeration.
+            </summary>
+        </member>
+        <member name="F:Nmx.Public.Result.Success">
+            <summary>
+            Create a result that indicate a successful operation
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Result.Failure(System.String)">
+            <summary>
+            Result of operation is failure.
+            </summary>
+            <param name="reason">The description of why the result is considered a failure</param>
+            <exception cref="T:System.ArgumentNullException">reason is null</exception>
+        </member>
+        <member name="M:Nmx.Public.Result.Failure(System.String,Nmx.Public.Result.ResultFailureSeverity)">
+            <summary>
+            Result of operation is failure.
+            </summary>
+            <param name="reason">The description of why the result is considered a failure</param>
+            <param name="severity">The severity level of the error</param>
+            <exception cref="T:System.ArgumentNullException">reason is null</exception>
+        </member>
+        <member name="P:Nmx.Public.Result.IsSuccess">
+            <summary>
+            True if the operation is considered successful. This is always the opposite of <see cref="P:Nmx.Public.Result.IsFailure"/>.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Result.IsFailure">
+            <summary>
+            True if the operation is considered a failure. This is always the opposite of <see cref="P:Nmx.Public.Result.IsSuccess"/>.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Result.Reason">
+            <summary>
+            Reason why operation failed.
+            Will be null when operation succeeded.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Result.Severity">
+            <summary>
+            The severity of the failure. Only applicable when <see cref="P:Nmx.Public.Result.IsFailure"/> is <c>true</c>.
+            </summary>
+            <seealso cref="T:Nmx.Public.Result.ResultFailureSeverity"/>
+        </member>
+        <member name="M:Nmx.Public.Result.op_Explicit(Nmx.Public.Result)~System.Boolean">
+            <summary>
+            Typecast to bool. A result where <see cref="P:Nmx.Public.Result.IsSuccess"/> is true will convert to true, otherwise false.
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:Nmx.Public.Result.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.Result.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Nmx.Public.Result.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Nmx.Public.Result.ResultFailureSeverity">
+            <summary>
+            Type of the result.
+            </summary>
+        </member>
+        <member name="F:Nmx.Public.Result.ResultFailureSeverity.None">
+            <summary>
+            Informational result, a success is Informational by default.
+            </summary>
+        </member>
+        <member name="F:Nmx.Public.Result.ResultFailureSeverity.Warning">
+            <summary>
+            Failure, but a warning.
+            </summary>
+        </member>
+        <member name="F:Nmx.Public.Result.ResultFailureSeverity.Error">
+            <summary>
+            Failure and is a error.
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.ScriptArguments">
+            <summary>
+            This class represents the arguments that are
+            passed to the script.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.ScriptArguments.GetValue(System.String)">
+            <summary>
+            Helper method to query for availability of argument
+            with provided <paramref name="key"/>.
+            null is returned if there is no value with the
+            provided key.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nmx.Public.ScriptContext">
+            <summary>
+            The context that is passed to script for execution.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.ScriptContext.Arguments">
+            <summary>
+            <see cref="T:Nmx.Public.ScriptArguments"/>
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.ScriptContext.Logger">
+            <summary>
+            <see cref="T:Nmx.Public.ScriptLogger"/>
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.ScriptContext.Messages">
+            <summary>
+            <see cref="T:Nmx.Public.ScriptMessages"/>
+            </summary>
+        </member>
+        <member name="T:Nmx.Public.ScriptLogger">
+            <summary>
+            The implementation of this class is responsible to
+            print log messages. By default, the messages are logged
+            to script output window.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.ScriptLogger.Log(System.String)">
+            <summary>
+            Logs the given string to the output.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:Nmx.Public.ScriptMessages">
+            <summary>
+            Class that holds the NLS supported messages that a script defines with its key value pair.
+            Provides function to resolve the script message.
+            </summary>
+            <remarks>
+            <p>
+            If the messages reported by scripts are going to be viewed by users of different languages then
+            the <see cref="T:Nmx.Public.ScriptMessages"/> class and its methods can be used to provide that translation support.
+            </p>
+            <p>
+            The way it works is that each script contains a table of <c>Key</c>/<c>Message</c> pairs where the Message part can be translated separately from the script.
+            The script itself would use the Key with the <see cref="M:Nmx.Public.ScriptMessages.Message(System.String,System.Object[])"/> method and the scripting framework will replace it with the actual string in the correct language for the user.
+            <br/>
+            Messages can include string formatting placeholders. These are passed directly to <see cref="M:System.String.Format(System.String,System.Object)" /> and anything that the .NET string formatting routines can handle can be used here.
+            </p>
+            </remarks>
+            <example>
+            <p>Given the message definition in the picture below, the following code shows how to use the ScriptMessage class to translate the messages</p>
+            <img src="../Img/de.script-nls.png" Title="Configured table of key/message pairs in a scripting aspect." /><br/>
+            <code language="cs">
+             // "sms" is of type ScriptMessage, passed as an argument to the script
+             string msg = sms.Message("ZoneRefMissing") 
+             // "msg" now contains the text "Zone reference not set" in the user's language
+            </code>
+            To use String.Format style messages
+            <code language="cs">
+             string msg = sms.Message("NoObjectsFound", "Station") 
+             // "msg" now contains the text "No objects found for Station" in the user's language
+             // For e.g. a Swedish user, this might be "Inga object av typen Station kunde hittas".
+            </code>
+            </example>
+        </member>
+        <member name="M:Nmx.Public.ScriptMessages.Message(System.String,System.Object[])">
+            <summary>
+            Retrives a message translated into the language of the current user. 
+            </summary>
+            <param name="key">Unique key of the message to get.</param>
+            <param name="values">Arguments for messages which has string formatting placeholders</param>
+            <returns>The string with the specified key, translated to the language of the current user. If no such translation exist, the original message is returned (usually english)</returns>
+        </member>
+        <member name="T:Nmx.Public.Views.IUserControlConfigurationView">
+            <summary>
+            This interface is implemented by a configuration view and will in response
+            to a save command (commit button in aspect view) ask the view for data. 
+            The commit button is activated by calling the ChangesPending method in the
+            IUserControlViewHost host interface.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlConfigurationView.GetViewData">
+            <summary>
+            Returns the data used by the view.
+            </summary>
+            <returns>Dat to be saved with the view.</returns>
+        </member>
+        <member name="T:Nmx.Public.Views.IUserControlView">
+            <summary>
+            The interface is implemenetd by a plug-in user control view. It is used by the framework
+            to communicate with the plug-in.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlView.Activate">
+            <summary>
+            Called when the view becomes active. This means that it is visible and
+            that the user can interact with it.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlView.Deactivate">
+            <summary>
+            Celled when the viw becomes deactivated, for example when the view
+            is covered by another tab in a window. The view is expected to conserve
+            resources when deactivated as it may stay like this for a longer
+            time period.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlView.CanClose(System.Boolean)">
+            <summary>
+            Do the view accept to be closed? If not it should return false.
+            </summary>
+            <param name="atExist">The workplace is closing down.</param>
+            <returns>True to allow the close to proceed.</returns>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlView.Closed">
+            <summary>
+            The view been closed.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlView.Updated(System.Byte[])">
+            <summary>
+            The view data been updated.
+            </summary>
+            <param name="viewData">New view data.</param>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlView.SetCurrentState(System.Byte[])">
+            <summary>
+            Asks the control to set new state data.
+            </summary>
+            <param name="stateData">State data.</param>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlView.GetCurrentState(System.Boolean,System.Byte[]@)">
+            <summary>
+            Asks the view to return its current state-
+            </summary>
+            <param name="onlyFormat">Only include "formatting" information.</param>
+            <param name="stateData">View state data.</param>
+        </member>
+        <member name="T:Nmx.Public.Views.IUserControlViewFactory">
+            <summary>
+            Interface implemented by a user control plug-in factory object that produces the
+            views that the the plug-in presents.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlViewFactory.SupportsViews(System.Boolean@,System.Boolean@)">
+            <summary>
+            Specifies which views are used by the view.
+            </summary>
+            <param name="usesConfigurationView">Uses a configuration view.</param>
+            <param name="usesRuntimeView">Uses a runtime view.</param>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlViewFactory.GetConfigurationView(Nmx.Public.Views.IUserControlViewHost,System.Byte[])">
+            <summary>
+            Returns a configuration view. May return null if a configuration view is not
+            used.
+            </summary>
+            <param name="host">Pointer to container that hosts the view.</param>
+            <param name="viewData">Data local to the view.</param>
+            <returns>A pointer user control that implements the view.</returns>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlViewFactory.GetRuntimeView(Nmx.Public.Views.IUserControlViewHost,System.Byte[])">
+            <summary>
+            Returns a runtime view. May return null if a runtime view is not
+            used.
+            </summary>
+            <param name="host">Pointer to container that hosts the view.</param>
+            <param name="viewData">Data local to the view.</param>
+            <returns>A pointer user control that implements the view.</returns>
+        </member>
+        <member name="T:Nmx.Public.Views.IUserControlViewHost">
+            <summary>
+            Interface used by a user control view to communicate with its host.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Views.IUserControlViewHost.CurrentViewState">
+            <summary>
+            Returns the current view state.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlViewHost.ChangesPending">
+            <summary>
+            The view has pending changes. This method should only be called by a configuration or 
+            combined view.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlViewHost.ShowInformationMessage(System.String,System.String)">
+            <summary>
+            Shows an information message using the standard dialog.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlViewHost.ShowErrorMessage(System.String,System.String)">
+            <summary>
+            Shows an error message using the standard dialog.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlViewHost.ShowWarningMessage(System.String,System.String)">
+            <summary>
+            Shows an warning message using the standard dialog.
+            </summary>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlViewHost.AskForCloseWithoutSaving">
+            <summary>
+            Uses the standard dialog for asking if the view can be closed without saving data.
+            Can optionally be used in the CanClose (IUserControlView interface) method.
+            </summary>
+            <returns>Returns true if the customer accepted to close without saving.</returns>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlViewHost.OpenDisplay(System.String,System.Byte[],System.Object@,System.Boolean)">
+            <summary>
+            Opens a display.
+            </summary>
+            <param name="displayKey">The "key" of the display to open, can be IDs or name of display.</param>
+            <param name="stateData">State data for the display to use when opened,</param>
+            <param name="newView">A pointer to the new view.</param>
+            <param name="forceFloating">If true make the display be floatng.</param>
+            <returns>Error message, null when OK.</returns>
+        </member>
+        <member name="M:Nmx.Public.Views.IUserControlViewHost.FindUserControlViews(System.String,System.String)">
+            <summary>
+            Returns infomation about other USer Control views based on the
+            DLL name and entry name. The view from which the call is made is excluded.
+            </summary>
+            <param name="dllName">Name of DLL. Can be a pattern "a*" or if null matches all views.</param>
+            <param name="entryName">Name of entry poiunt. Can be a pattern or null to math all views.</param>
+            <returns>List of view information records.</returns>
+        </member>
+        <member name="T:Nmx.Public.Views.UserControlViewInfo">
+            <summary>
+            Information about user control views.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Views.UserControlViewInfo.DisplayKey">
+            <summary>
+            A key that can be used to open the aspect/display.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Views.UserControlViewInfo.DisplayTitle">
+            <summary>
+            Title used to present the view.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Views.UserControlViewInfo.ObjectName">
+            <summary>
+            Name of the object where the display is placed.
+            </summary>
+        </member>
+        <member name="P:Nmx.Public.Views.UserControlViewInfo.Data">
+            <summary>
+            The views configuration data.
+            </summary>
+        </member>
+    </members>
+</doc>
